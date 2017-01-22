@@ -1,0 +1,16 @@
+machine:
+  node:
+    version: 6.9.4
+test:
+  override:
+    - echo "no test"
+deployment:
+  development:
+    branch: development
+    commands:
+      - aws configure set region eu-central-1
+      # - npm install -g bower
+      # - bower install
+      - ng build --dev --e=dev
+      - echo ${CIRCLE_SHA1:0:7} > dist/version.txt
+      - aws s3 sync --acl public-read --delete ./dist/ s3://app-development.datenbank.io

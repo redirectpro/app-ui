@@ -1,0 +1,14 @@
+<md-toolbar>
+  {{title}}
+</md-toolbar>
+
+<a *ngIf="!authService.isLogged()" routerLink="/account/register" md-button>Register</a>
+<a *ngIf="!authService.isLogged()" routerLink="/account/login" md-button>Login</a>
+<a *ngIf="authService.isLogged()" routerLink="/dashboard" routerLinkActive="active" md-button>Dashboard</a>
+<a *ngIf="authService.isLogged()" routerLink="/account/logout" md-button>Logout</a>
+
+<md-grid-list cols="1" rowHeight="100px">
+  <md-grid-tile>
+    <router-outlet></router-outlet>
+  </md-grid-tile>
+</md-grid-list>
