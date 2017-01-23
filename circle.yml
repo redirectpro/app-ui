@@ -6,6 +6,4 @@ deployment:
     branch: development
     commands:
       - aws configure set region eu-central-1
-      - ./node_modules/.bin/ng build --dev --e=development
-      - echo ${CIRCLE_SHA1:0:7} > dist/commit.txt
-      - aws s3 sync --acl public-read --delete ./dist/ s3://app-development.redirectpro.io
+      - ./deploy.sh
