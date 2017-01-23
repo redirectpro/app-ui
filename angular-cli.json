@@ -1,7 +1,7 @@
 {
   "project": {
     "version": "1.0.0-beta.26",
-    "name": "redirect-ui-client"
+    "name": "app-ui"
   },
   "apps": [
     {
@@ -24,7 +24,8 @@
       "environments": {
         "source": "environments/environment.ts",
         "dev": "environments/environment.ts",
-        "production": "environments/environment.production.ts"
+        "production": "environments/environment.production.ts",
+        "development": "environments/environment.development.ts"
       }
     }
   ],
