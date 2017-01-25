@@ -1,85 +1,76 @@
 import { Injectable } from '@angular/core';
-import { Http } from '@angular/http';
+import { tokenNotExpired } from 'angular2-jwt';
 import { Router } from '@angular/router';
-import { environment } from '../../environments/environment';
+
+// Avoid name not found warnings
+declare var Auth0Lock: any;
 
 @Injectable()
 export class AuthService {
-  constructor(private http: Http, private router: Router) { }
 
-  register() {
-    const apiUrl = environment.apiUrl
-      + '/v1/auth/register'
-      + '?callbackUrl='
-      + encodeURIComponent(window.location.origin + '/auth/id-site-result/register');
-
-    this.http.get(apiUrl)
-    .subscribe(
-        res => {
-          window.location.href = res.json().redirectUrl;
-        }
-     );
-  }
-
-  login() {
-    const apiUrl = environment.apiUrl
-      + '/v1/auth/login'
-      + '?callbackUrl='
-      + encodeURIComponent(window.location.origin + '/auth/id-site-result/login');
-
-    this.http.get(apiUrl)
-    .subscribe(
-        res => {
-          window.location.href = res.json().redirectUrl;
-        }
-     );
-  }
-
-  logout() {
-    const apiUrl = environment.apiUrl
-      + '/v1/auth/logout'
-      + '?callbackUrl='
-      + encodeURIComponent(window.location.origin + '/auth/id-site-result/logout');
-
-    this.http.get(apiUrl)
-    .subscribe(
-        res => {
-          window.location.href = res.json().redirectUrl;
-        }
-     );
-  }
-
-  idSiteResultLogin(jwtResponse: string, callback: any) {
-    const apiUrl = environment.apiUrl
-      + '/v1/auth/idSiteResult'
-      + '?jwtResponse='
-      + encodeURIComponent(jwtResponse);
-
-    this.http.get(apiUrl)
-    .subscribe(
-        res => {
-          const json = res.json()
-          localStorage.setItem('access_token', json.access_token);
-          localStorage.setItem('refresh_token', json.refresh_token);
-          localStorage.setItem('expires_in', json.expires_in);
-          callback();
-        }
-    );
-  }
-
-  idSiteResultLogout(callback: any) {
-    localStorage.removeItem('access_token');
-    localStorage.removeItem('refresh_token');
-    localStorage.removeItem('expires_in');
-    callback();
-  }
-
-  isLogged() {
-    if (localStorage.getItem('access_token')) {
-      return true;
-    } else {
-      return false;
+  // Configure Auth0
+  lock = new Auth0Lock('n1K6ZPkvgD7eLuKLXCBOy8d3dfnKlTAc', 'keepat.eu.auth0.com', {
+    auth: {
+      redirectUrl: 'http://localhost:4200/',
+      responseType: 'code',
+      params: {
+        scope: 'openid email' // Learn about scopes: https://auth0.com/docs/scopes
+      }
     }
+  });
+
+  // Store profile object in auth class
+  userProfile: Object;
+
+  constructor(private router: Router) {
+    // Set userProfile attribute of already saved profile
+    this.userProfile = JSON.parse(localStorage.getItem('user_profile'));
+
+    // Add callback for lock `authenticated` event
+    this.lock.on('authenticated', (authResult) => {
+      localStorage.setItem('id_token', authResult.idToken);
+      localStorage.setItem('access_token', authResult.accessToken);
+
+      // Fetch profile information
+      this.lock.getProfile(authResult.idToken, (error, profile) => {
+        console.log(profile);
+        if (error) {
+          // Handle error
+          alert(error);
+          return;
+        }
+
+        localStorage.setItem('user_profile', JSON.stringify(profile));
+        this.userProfile = profile;
+
+        const redirectUrl: string = localStorage.getItem('redirect_url');
+        if (redirectUrl !== undefined){
+          // this.router.navigate([redirectUrl]);
+          // localStorage.removeItem('redirect_url');
+        }
+
+      });
+
+    });
   }
 
+  public login() {
+    // Call the show method to display the widget.
+    this.lock.show();
+  }
+
+  public authenticated() {
+    // Check if there's an unexpired JWT
+    // This searches for an item in localStorage with key == 'id_token'
+    return tokenNotExpired();
+  }
+
+  public logout() {
+    // Remove token from localStorage
+    localStorage.removeItem('id_token');
+    localStorage.removeItem('access_token');
+    localStorage.removeItem('user_profile');
+    this.router.navigate(['/']);
+    this.userProfile = undefined;
+  }
 }
