@@ -3,7 +3,7 @@ machine:
     version: 6.9.4
 deployment:
   development:
-    branch: development
+    branch: master
     commands:
       - aws configure set region eu-central-1
       - ./deploy.sh
