@@ -12,7 +12,7 @@ export class AuthService {
   lock = new Auth0Lock('n1K6ZPkvgD7eLuKLXCBOy8d3dfnKlTAc', 'keepat.eu.auth0.com', {
     auth: {
       redirectUrl: 'http://localhost:4200/',
-      responseType: 'code',
+      responseType: 'token',
       params: {
         scope: 'openid email' // Learn about scopes: https://auth0.com/docs/scopes
       }
