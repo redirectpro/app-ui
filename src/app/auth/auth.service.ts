@@ -11,7 +11,7 @@ export class AuthService {
   // Configure Auth0
   lock = new Auth0Lock('n1K6ZPkvgD7eLuKLXCBOy8d3dfnKlTAc', 'keepat.eu.auth0.com', {
     auth: {
-      redirectUrl: 'http://localhost:4200/',
+      redirectUrl: window.location.origin,
       responseType: 'token',
       params: {
         scope: 'openid email' // Learn about scopes: https://auth0.com/docs/scopes
@@ -33,7 +33,6 @@ export class AuthService {
 
       // Fetch profile information
       this.lock.getProfile(authResult.idToken, (error, profile) => {
-        console.log(profile);
         if (error) {
           // Handle error
           alert(error);
