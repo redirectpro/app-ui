@@ -1,10 +1,10 @@
-import { RedirectUiClientPage } from './app.po';
+import { AppUiPage } from './app.po';
 
-describe('redirect-ui-client App', function() {
-  let page: RedirectUiClientPage;
+describe('app-ui App', function() {
+  let page: AppUiPage;
 
   beforeEach(() => {
-    page = new RedirectUiClientPage();
+    page = new AppUiPage();
   });
 
   it('should display message saying app works', () => {
