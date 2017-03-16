@@ -11,17 +11,22 @@ import { AuthService } from './auth/auth.service';
 import { AppComponent } from './app.component';
 import { AccountComponent } from './account/account.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { PlanComponent } from './billing/plan/plan.component';
 
 const routes: Routes = [
   { path: '', component: DashboardComponent },
   { path: 'account', component: AccountComponent, canActivate: [AuthGuardService] },
+  { path: 'billing', children: [
+    { path: '', redirectTo: '/', pathMatch: 'full' },
+    { path: 'plans', component: PlanComponent }
+  ]},
   { path: '**', redirectTo: '' }
 ];
 
 @NgModule({
   declarations: [
     AppComponent,
-    AccountComponent, DashboardComponent
+    AccountComponent, DashboardComponent, PlanComponent
   ],
   imports: [
     BrowserModule,

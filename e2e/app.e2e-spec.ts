@@ -1,10 +1,10 @@
-import { AppUiPage } from './app.po';
+import { RedirectproAppUiPage } from './app.po';
 
-describe('app-ui App', function() {
-  let page: AppUiPage;
+describe('redirectpro-app-ui App', () => {
+  let page: RedirectproAppUiPage;
 
   beforeEach(() => {
-    page = new AppUiPage();
+    page = new RedirectproAppUiPage();
   });
 
   it('should display message saying app works', () => {

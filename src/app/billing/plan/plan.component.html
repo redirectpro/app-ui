@@ -1,0 +1,9 @@
+<p>
+  plan works!
+</p>
+
+<ul>
+   <li *ngFor="let plan of this.planList;">
+      <button md-button (click)="changePlan(plan.id)"> {{ plan.name }} - {{ plan.price }}</button>
+   </li>
+</ul>

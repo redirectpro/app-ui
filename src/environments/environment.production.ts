@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  apiUrl: 'https://api.redirectpro.io'
+  baseUrl: 'https://api.redirectpro.io'
 };

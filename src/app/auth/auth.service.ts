@@ -23,8 +23,9 @@ export class AuthService {
   userProfile: Object;
 
   constructor(private router: Router) {
+
     // Set userProfile attribute of already saved profile
-    this.userProfile = JSON.parse(localStorage.getItem('user_profile'));
+    this.userProfile = this.getUserProfile();
 
     // Add callback for lock `authenticated` event
     this.lock.on('authenticated', (authResult) => {
@@ -39,11 +40,12 @@ export class AuthService {
           return;
         }
 
+        delete profile.app_metadata;
         localStorage.setItem('user_profile', JSON.stringify(profile));
         this.userProfile = profile;
 
         const redirectUrl: string = localStorage.getItem('redirect_url');
-        if (redirectUrl !== undefined){
+        if (redirectUrl !== undefined) {
           // this.router.navigate([redirectUrl]);
           // localStorage.removeItem('redirect_url');
         }
@@ -71,5 +73,9 @@ export class AuthService {
     localStorage.removeItem('user_profile');
     this.router.navigate(['/']);
     this.userProfile = undefined;
+  }
+
+  public getUserProfile() {
+    return JSON.parse(localStorage.getItem('user_profile'));
   }
 }

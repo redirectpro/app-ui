@@ -9,7 +9,7 @@ export EB_APPLICATION=redirectpro-app-ui
 sed -ie 's/LOCAL/'${CIRCLE_SHA1:0:7}'/g' package.json
 #
 # Converting to ES5
-npm run prestart
+# npm run prestart
 #
 # Compressing and uploading file to S3
 zip -r -9 --exclude=node_modules/* $S3_FILE_NAME *
