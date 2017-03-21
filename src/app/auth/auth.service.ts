@@ -32,27 +32,34 @@ export class AuthService {
       localStorage.setItem('id_token', authResult.idToken);
       localStorage.setItem('access_token', authResult.accessToken);
 
-      // Fetch profile information
-      this.lock.getProfile(authResult.idToken, (error, profile) => {
-        if (error) {
-          // Handle error
-          alert(error);
-          return;
-        }
+      this.updateUserProfile();
+    });
+  }
 
-        delete profile.app_metadata;
-        localStorage.setItem('user_profile', JSON.stringify(profile));
-        this.userProfile = profile;
+  public updateUserProfile() {
 
-        const redirectUrl: string = localStorage.getItem('redirect_url');
-        if (redirectUrl !== undefined) {
-          // this.router.navigate([redirectUrl]);
-          // localStorage.removeItem('redirect_url');
-        }
+    const idToken = localStorage.getItem('id_token');
 
-      });
+    // Fetch profile information
+    this.lock.getProfile(idToken, (error, profile) => {
+      if (error) {
+        // Handle error
+        alert(error);
+        return;
+      }
+      console.log('updating userProfile...')
+      delete profile.app_metadata;
+      localStorage.setItem('user_profile', JSON.stringify(profile));
+      this.userProfile = profile;
+
+      // const redirectUrl: string = localStorage.getItem('redirect_url');
+      // if (redirectUrl !== undefined) {
+      //   // this.router.navigate([redirectUrl]);
+      //   // localStorage.removeItem('redirect_url');
+      // }
 
     });
+
   }
 
   public login() {

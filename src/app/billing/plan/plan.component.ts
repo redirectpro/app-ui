@@ -1,8 +1,10 @@
-import { Http } from '@angular/http';
 import { Component, OnInit } from '@angular/core';
+import { AuthService } from '../../auth/auth.service';
 import { BillingService } from '../billing.service';
 import { PlanService } from './plan.service';
-import { AuthService } from '../../auth/auth.service';
+import { ApiService } from '../../api/api.service';
+import { MdDialog } from '@angular/material';
+import { DialogComponent } from '../../dialog/dialog.component';
 
 import * as _ from 'lodash';
 
@@ -12,15 +14,16 @@ import * as _ from 'lodash';
   styleUrls: ['./plan.component.css']
 })
 export class PlanComponent implements OnInit {
-
   billingService: BillingService;
   planService: PlanService;
   planList: Array<Object>;
 
-  constructor(private authService: AuthService, private http: Http) { }
+  constructor(private authService: AuthService, private apiService: ApiService, public dialog: MdDialog) {
+    // console.log(authService.userProfile);
+  }
 
   ngOnInit() {
-    this.billingService = new BillingService(this.http);
+    this.billingService = new BillingService(this.apiService);
     this.planService = new PlanService();
     this.planList = this.planService.getPlans();
   }
@@ -29,21 +32,44 @@ export class PlanComponent implements OnInit {
     const plan = _.find(this.planList, { id: id });
     const userProfile = this.authService.getUserProfile();
 
-    const testCallback = () => {
-      console.log('test callback');
+    const setNewPlan = () => {
+      this.billingService.setPlan({ plan_id: plan.id, callback: () => {
+        this.authService.updateUserProfile();
+      } });
+    };
+
+    const confirmPlan = (planCost) => {
+      const dialogRef = this.dialog.open(DialogComponent);
+      dialogRef.componentInstance.type = 'confirm';
+      dialogRef.componentInstance.title = 'Confirm your new plan';
+      dialogRef.componentInstance.message = `Your ${plan.name} plan will cost ${planCost} and ` +
+        `it will be automatically charged ${plan.price} every month on your credit card. Do you confirm?`;
+
+      const confirm = dialogRef.componentInstance.onConfirm.subscribe(() => {
+        setNewPlan();
+      });
+
+      dialogRef.afterClosed().subscribe(result => {
+        confirm.unsubscribe();
+      });
+    };
+
+    const upcomingCost = () => {
+      this.billingService.getPlanUpcomingCost({ plan_id: plan.id, callback: (cost) => {
+        confirmPlan(cost);
+      }});
     }
 
-    if (true) { //!userProfile.stripe.card) {
+    if (!userProfile.stripe.card) {
       this.billingService.setCreditCard({
         name: userProfile.nickname,
         email: userProfile.email,
-        callback: testCallback
+        callback: upcomingCost
       });
+    } else {
+      upcomingCost();
     }
 
-    // validateCreditCard / set or next
-    // dialog to confirm / set or cancel
-    // if set, update plan and change localStorage
   }
 
 }

@@ -4,6 +4,7 @@
 
 <ul>
    <li *ngFor="let plan of this.planList;">
-      <button md-button (click)="changePlan(plan.id)"> {{ plan.name }} - {{ plan.price }}</button>
+     <span *ngIf="authService.userProfile.stripe.plan_id == plan.id">{{ plan.name }}</span>
+      <button *ngIf="authService.userProfile.stripe.plan_id != plan.id" md-button (click)="changePlan(plan.id)">{{ plan.name }} - {{ plan.price }}</button>
    </li>
 </ul>
