@@ -5,6 +5,6 @@
 <ul>
    <li *ngFor="let plan of this.planList;">
      <span *ngIf="authService.userProfile.stripe.plan_id == plan.id">{{ plan.name }}</span>
-      <button *ngIf="authService.userProfile.stripe.plan_id != plan.id" md-button (click)="changePlan(plan.id)">{{ plan.name }} - {{ plan.price }}</button>
+      {{ plan.name }} - {{ plan.price | currency:'USD':true }}<button *ngIf="authService.userProfile.stripe.plan_id != plan.id" md-button (click)="changePlan(plan.id)">SET</button>
    </li>
 </ul>
