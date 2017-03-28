@@ -1,6 +1,6 @@
-import { Component, ViewEncapsulation } from '@angular/core';
+import { Component, ViewEncapsulation, OnInit } from '@angular/core';
 import { AuthService } from './auth/auth.service';
-import { ApiService } from './api/api.service';
+import { ApplicationService } from './application/application.service';
 
 @Component({
   selector: 'app-root',
@@ -8,9 +8,17 @@ import { ApiService } from './api/api.service';
   styleUrls: ['./app.component.css'],
   providers: [AuthService]
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   title = 'app works!';
+  userProfile: Object;
+  billingProfile: Object;
 
-  constructor(private authService: AuthService, private apiService: ApiService) { }
+  constructor(private authService: AuthService, private applicationService: ApplicationService) { }
+
+  ngOnInit() {
+    if (this.authService.authenticated() === true) {
+      this.applicationService.initialize();
+    }
+  }
 
 }

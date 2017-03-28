@@ -14,7 +14,7 @@ export class BillingService {
       image: 'https://stripe.com/img/documentation/checkout/marketplace.png',
       locale: 'auto',
       token: (token) => {
-        return this.apiService.apiPutCreditCard({ token: token, callback: parameters.callback });
+        // return this.apiService.apiPutCreditCard({ token: token, callback: parameters.callback });
       }
     });
 
@@ -29,13 +29,13 @@ export class BillingService {
   }
 
   setPlan(parameters) {
-    return this.apiService.apiPutPlan({ plan_id: parameters.plan_id, callback: parameters.callback });
+    // return this.apiService.apiPutPlan({ plan_id: parameters.plan_id, callback: parameters.callback });
   }
 
   getPlanUpcomingCost(parameters) {
-    return this.apiService.apiPostPlanUpcomingCost({
-      plan_id: parameters.plan_id,
-      callback: parameters.callback
-    });
+    // return this.apiService.apiPostPlanUpcomingCost({
+    //   plan_id: parameters.plan_id,
+    //   callback: parameters.callback
+    // });
   }
 }

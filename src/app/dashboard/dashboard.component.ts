@@ -12,7 +12,7 @@ export class DashboardComponent implements OnInit {
   constructor(public dialog: MdDialog) { }
 
   ngOnInit() {
-
+  
   }
 
   openDialog() {

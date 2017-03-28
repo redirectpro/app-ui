@@ -1,0 +1,21 @@
+<p>
+  credit-card works!
+</p>
+
+<div *ngIf="applicationService.initialized">
+
+  <div *ngIf="!applicationService.billing.profile.card">
+    You do not have a credit card filled.
+  </div>
+
+  <div *ngIf="applicationService.billing.profile.card">
+    Your credit card is a <code>{{ applicationService.billing.profile.card.brand }}</code> brand
+    ending in <code>{{ applicationService.billing.profile.card.last4 }}</code>
+    and expires in 
+    <code>{{ applicationService.billing.profile.card.exp_month }}/{{ applicationService.billing.profile.card.exp_year }}</code>.
+    <br />
+  </div>
+
+  <button md-button (click)="updateCreditCard()">Change</button>
+
+</div>

@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { tokenNotExpired } from 'angular2-jwt';
 import { Router } from '@angular/router';
+import { ApplicationService } from '../application/application.service';
 
 // Avoid name not found warnings
 declare var Auth0Lock: any;
@@ -22,44 +23,18 @@ export class AuthService {
   // Store profile object in auth class
   userProfile: Object;
 
-  constructor(private router: Router) {
+  constructor(private router: Router, private applicationService: ApplicationService) {
 
     // Set userProfile attribute of already saved profile
-    this.userProfile = this.getUserProfile();
+    // this.userProfile = this.getUserProfile();
 
     // Add callback for lock `authenticated` event
     this.lock.on('authenticated', (authResult) => {
       localStorage.setItem('id_token', authResult.idToken);
       localStorage.setItem('access_token', authResult.accessToken);
 
-      this.updateUserProfile();
+      this.applicationService.initialize();
     });
-  }
-
-  public updateUserProfile() {
-
-    const idToken = localStorage.getItem('id_token');
-
-    // Fetch profile information
-    this.lock.getProfile(idToken, (error, profile) => {
-      if (error) {
-        // Handle error
-        alert(error);
-        return;
-      }
-      console.log('updating userProfile...')
-      delete profile.app_metadata;
-      localStorage.setItem('user_profile', JSON.stringify(profile));
-      this.userProfile = profile;
-
-      // const redirectUrl: string = localStorage.getItem('redirect_url');
-      // if (redirectUrl !== undefined) {
-      //   // this.router.navigate([redirectUrl]);
-      //   // localStorage.removeItem('redirect_url');
-      // }
-
-    });
-
   }
 
   public login() {
@@ -82,7 +57,7 @@ export class AuthService {
     this.userProfile = undefined;
   }
 
-  public getUserProfile() {
-    return JSON.parse(localStorage.getItem('user_profile'));
-  }
+  // public getUserProfile() {
+  //   return JSON.parse(localStorage.getItem('user_profile'));
+  // }
 }
