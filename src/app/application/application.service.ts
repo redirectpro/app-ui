@@ -25,7 +25,7 @@ export class ApplicationService {
       Promise.all([p1, p2]).then(() => {
         this.initialized = true;
       }).catch((err) => {
-      })
+      });
     });
   }
 }

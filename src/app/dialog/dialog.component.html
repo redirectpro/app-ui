@@ -1,7 +1,6 @@
-<h1 md-dialog-title>{{ title }}</h1>
+<h1 *ngIf="title" md-dialog-title>{{ title }}</h1>
 <div md-dialog-content>{{ message }}</div>
 <div md-dialog-actions>
-  <button *ngIf="type=='alert'" md-button (click)="onConfirmClicked()">OK</button>
-  <button *ngIf="type=='confirm'" md-button (click)="onCancelClicked()">Cancel</button>
-  <button *ngIf="type=='confirm'" md-button (click)="onConfirmClicked()">Confirm</button>
+  <button *ngIf="declineText" md-button color="warn" (click)="onDeclaneClicked()">{{ declineText }}</button>
+  <button *ngIf="confirmText" md-button color="accent" (click)="onConfirmClicked()">{{ confirmText }}</button>
 </div>

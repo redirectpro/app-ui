@@ -1,6 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { DialogComponent } from '../dialog/dialog.component';
-import { MdDialog } from '@angular/material';
 
 @Component({
   selector: 'app-dashboard',
@@ -9,27 +7,9 @@ import { MdDialog } from '@angular/material';
 })
 export class DashboardComponent implements OnInit {
 
-  constructor(public dialog: MdDialog) { }
+  constructor() { }
 
   ngOnInit() {
-  
   }
 
-  openDialog() {
-    const dialogRef = this.dialog.open(DialogComponent);
-    dialogRef.componentInstance.type = 'confirm';
-
-    const confirmSub = dialogRef.componentInstance.onConfirm.subscribe(() => {
-      console.log('confirmed!');
-    });
-
-    const cancelSub = dialogRef.componentInstance.onCancel.subscribe(() => {
-      console.log('cancelled!');
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
-      confirmSub.unsubscribe();
-      cancelSub.unsubscribe();
-    });
-  }
 }

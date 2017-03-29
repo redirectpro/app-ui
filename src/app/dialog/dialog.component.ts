@@ -8,10 +8,11 @@ import { MdDialogRef } from '@angular/material';
 })
 export class DialogComponent implements OnInit {
 
-  public title: String = 'Default title';
-  public type: String = 'alert';
+  public title: String;
   public message: String = 'Default message';
-  public onCancel = new EventEmitter();
+  public confirmText: String = 'Yes';
+  public declineText: String = 'No';
+  public onDecline = new EventEmitter();
   public onConfirm = new EventEmitter();
 
   constructor(public dialogRef: MdDialogRef<DialogComponent>) { }
@@ -24,8 +25,8 @@ export class DialogComponent implements OnInit {
     this.dialogRef.close();
   }
 
-  onCancelClicked() {
-    this.onCancel.emit();
+  onDeclaneClicked() {
+    this.onDecline.emit();
     this.dialogRef.close();
   }
 

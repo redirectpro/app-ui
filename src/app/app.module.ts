@@ -10,6 +10,7 @@ import { AuthService } from './auth/auth.service';
 import { ApiService } from './api/api.service';
 import { ApplicationService } from './application/application.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { DialogService } from './dialog/dialog.service';
 
 import { AppComponent } from './app.component';
 import { DialogComponent } from './dialog/dialog.component';
@@ -44,7 +45,7 @@ const routes: Routes = [
   ],
   entryComponents: [ DialogComponent ],
   exports: [RouterModule],
-  providers: [AuthGuardService, AuthService, ApiService, ApplicationService],
+  providers: [AuthGuardService, AuthService, ApiService, ApplicationService, DialogService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
