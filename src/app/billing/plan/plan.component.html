@@ -2,8 +2,17 @@
   plan works!
 </p>
 
-<ul *ngIf="applicationService.initialized">
-   <li *ngFor="let plan of applicationService.billing.plans;">
-      {{ plan.name }}/{{ plan.id }} - {{ plan.price | currency:'USD':true }}<button md-button *ngIf="applicationService.billing.profile.subscription.plan.id != plan.id" (click)="updatePlan(plan.id)">SET</button>
-   </li>
-</ul>
+<div *ngIf="applicationService.initialized">
+  <ul>
+    <li *ngFor="let plan of applicationService.billing.plans;">
+        {{ plan.name }}/{{ plan.id }} - {{ plan.price | currency:'USD':true }}<button md-button *ngIf="applicationService.billing.profile.subscription.plan.id != plan.id" (click)="updatePlan(plan.id)">SET</button>
+    </li>
+  </ul>
+
+  <div *ngIf="applicationService.billing.profile.subscription.plan.upcomingPlanId">
+  Your plan will change to {{ applicationService.billing.profile.subscription.plan.upcomingPlanId }}
+  on {{ (applicationService.billing.profile.subscription.current_period_end | amFromUnix) | amDateFormat:'DD-MM-YYYY HH:mm' }}.
+  <br />
+  <button md-button (click)="cancelUpcomingPlan()">Cancel upcoming plan</button>
+  </div>
+</div>

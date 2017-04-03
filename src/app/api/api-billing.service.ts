@@ -40,9 +40,16 @@ export class ApiBillingService {
       .catch(this.apiService.handleError);
   }
 
-  public getPlanUpcomingCost(applicationId: String, planId: String) {
+  public getPlanUpcoming(applicationId: String, planId: String) {
     return this.http
-      .get(this.url + `/${applicationId}/plan/${planId}/upcomingCost`, this.apiService.requestOptions())
+      .get(this.url + `/${applicationId}/plan/${planId}/upcoming`, this.apiService.requestOptions())
+      .map(this.apiService.extractData)
+      .catch(this.apiService.handleError);
+  }
+
+  public postCancelUpcomingPlan(applicationId: String) {
+    return this.http
+      .post(this.url + `/${applicationId}/cancelUpcomingPlan`, undefined, this.apiService.requestOptions())
       .map(this.apiService.extractData)
       .catch(this.apiService.handleError);
   }

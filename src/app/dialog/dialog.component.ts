@@ -10,8 +10,8 @@ export class DialogComponent implements OnInit {
 
   public title: String;
   public message: String = 'Default message';
-  public confirmText: String = 'Yes';
-  public declineText: String = 'No';
+  public confirmText: String;
+  public declineText: String;
   public onDecline = new EventEmitter();
   public onConfirm = new EventEmitter();
 

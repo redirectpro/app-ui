@@ -4,8 +4,6 @@
 
 <button md-button class="btn btn-primary btn-margin" (click)="authService.login()" *ngIf="!authService.authenticated()">Log In</button>
 <button md-button class="btn btn-primary btn-margin" (click)="authService.logout()" *ngIf="authService.authenticated()">Log Out</button>
-<button md-button (click)="applicationService.initialize()">authService.updateProfile()</button>
-
 <button md-button routerLink="/dashboard" routerLinkActive="active">Dashboard</button>
 
 <button md-icon-button [mdMenuTriggerFor]="menu" *ngIf="authService.authenticated()">

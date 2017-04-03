@@ -77,12 +77,25 @@ export class ApplicationBillingService {
     });
   }
 
-  public getPlanUpcomingCost(planId) {
+  public getPlanUpcoming(planId) {
     const applicationId = this.applicationService.id;
     return new Promise((resolve, reject) => {
-      this.apiService.billing.getPlanUpcomingCost(applicationId, planId)
+      this.apiService.billing.getPlanUpcoming(applicationId, planId)
         .subscribe(
           data => {
+            return resolve(data);
+          }
+        );
+    });
+  }
+
+  public cancelUpcomingPlan() {
+    const applicationId = this.applicationService.id;
+    return new Promise((resolve, reject) => {
+      this.apiService.billing.postCancelUpcomingPlan(applicationId)
+        .subscribe(
+          data => {
+            this.profile['subscription'].plan.upcomingPlanId = data.plan.upcomingPlanId;
             return resolve(data);
           }
         );

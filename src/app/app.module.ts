@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { RouterModule, Routes } from '@angular/router';
 import { MaterialModule } from '@angular/material';
+import { MomentModule } from 'angular2-moment';
 
 import { AuthGuardService } from './auth/auth-guard.service';
 import { AuthService } from './auth/auth.service';
@@ -41,7 +42,8 @@ const routes: Routes = [
     HttpModule,
     RouterModule.forRoot(routes),
     MaterialModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    MomentModule
   ],
   entryComponents: [ DialogComponent ],
   exports: [RouterModule],
