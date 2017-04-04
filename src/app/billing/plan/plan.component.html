@@ -2,7 +2,7 @@
   plan works!
 </p>
 
-<div *ngIf="applicationService.initialized">
+<div *ngIf="applicationService.ready">
   <ul>
     <li *ngFor="let plan of applicationService.billing.plans;">
         {{ plan.name }}/{{ plan.id }} - {{ plan.price | currency:'USD':true }}<button md-button *ngIf="applicationService.billing.profile.subscription.plan.id != plan.id" (click)="updatePlan(plan.id)">SET</button>

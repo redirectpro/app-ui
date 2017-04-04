@@ -3,12 +3,14 @@ import { Http, Response, RequestOptions, Headers } from '@angular/http';
 import { environment } from '../../environments/environment';
 import { Observable } from 'rxjs/Rx';
 import { ApiUserService } from './api-user.service';
-import { ApiBillingService } from './api-billing.service'
+import { ApiBillingService } from './api-billing.service';
+import { ApiRedirectService } from './api-redirect.service';
 
 @Injectable()
 export class ApiService {
   user: ApiUserService;
   billing: ApiBillingService;
+  redirect: ApiRedirectService;
   url: String;
 
   constructor(public http: Http) {
@@ -16,6 +18,7 @@ export class ApiService {
 
     this.user = new ApiUserService(this);
     this.billing = new ApiBillingService(this);
+    this.redirect = new ApiRedirectService(this);
   }
 
   public requestOptions() {

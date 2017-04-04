@@ -1,0 +1,14 @@
+<p>
+  redirect-list works!
+</p>
+
+<div *ngIf="applicationService.ready">
+  <ul>
+    <li *ngFor="let redirect of listRedirect">
+    {{ redirect.hostTarget }} - {{ redirect.hostSources }}
+    <button md-button routerLink="/redirect/{{ redirect.id }}/edit">Edit</button>
+    </li>
+  </ul>
+
+  <button md-button routerLink="/redirect/new">Add new redirect</button>
+</div>
