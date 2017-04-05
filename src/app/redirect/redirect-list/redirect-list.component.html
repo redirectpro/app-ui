@@ -7,6 +7,7 @@
     <li *ngFor="let redirect of listRedirect">
     {{ redirect.hostTarget }} - {{ redirect.hostSources }}
     <button md-button routerLink="/redirect/{{ redirect.id }}/edit">Edit</button>
+    <button md-button (click)="deleteRedirect(redirect.id, redirect.hostTarget)">Delete</button>
     </li>
   </ul>
 

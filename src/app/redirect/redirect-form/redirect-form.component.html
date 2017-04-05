@@ -10,13 +10,13 @@
     </md-input-container>
   </p>
 
+  <p>
+    <md-input-container class="example-full-width">
+      <textarea mdInput placeholder="Your host sources" name="hostSources" [(ngModel)]="redirect.hostSources"></textarea>
+      <md-hint>Separate hosts with comma.</md-hint>
+    </md-input-container>
+  </p>
   
-  <!--<div formArrayName="hostSources">
-    <div *ngFor="let source of redirect.hostSources; index as i">
-      <input [formControlName]="i" placeholder="City">
-    </div>
-  </div>-->
-
   <p>
     <button color="primary" md-raised-button>Submit</button>
   </p>

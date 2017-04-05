@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ApplicationService } from '../../application/application.service';
 import { EventEmitter } from 'events';
+import { DialogService } from '../../dialog/dialog.service';
 
 @Component({
   selector: 'app-redirect-list',
@@ -12,15 +13,15 @@ export class RedirectListComponent implements OnInit {
   event: EventEmitter = new EventEmitter();
 
   constructor(
-    private applicationService: ApplicationService
+    private applicationService: ApplicationService,
+    public dialogService: DialogService
   ) {
-  }
-
-  ngOnInit() {
     this.event.on('ready', () => {
       this.getRedirectList();
     });
+  }
 
+  ngOnInit() {
     if (this.applicationService.ready === true) {;
       this.event.emit('ready', true);
     } else {
@@ -33,6 +34,23 @@ export class RedirectListComponent implements OnInit {
   getRedirectList() {
     this.applicationService.redirect.getRedirects().then((data: Array<Object>) => {
       this.listRedirect = data;
+    });
+  }
+
+  deleteRedirect(redirectId: String, target: String) {
+    const dialogParams = {
+      title: 'Deleting redirect',
+      declineText: 'Cancel',
+      confirmText: 'Yes',
+      message: `Do you want to delete redirect to target ${target}?`
+    };
+
+    this.dialogService.confirm(dialogParams).then((confirmed) => {
+      if (confirmed === true) {
+        this.applicationService.redirect.deleteRedirect(redirectId).then(() => {
+          this.listRedirect = this.listRedirect.filter(e => e['id'] !== redirectId);
+        });
+      }
     });
   }
 }
