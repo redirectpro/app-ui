@@ -23,7 +23,7 @@ export class AuthService {
   // Store profile object in auth class
   userProfile: Object;
 
-  constructor(private router: Router, private applicationService: ApplicationService) {
+  constructor(public router: Router, public applicationService: ApplicationService) {
 
     // Set userProfile attribute of already saved profile
     // this.userProfile = this.getUserProfile();

@@ -7,8 +7,8 @@ export class ApplicationUserService {
   public profile: Object;
 
   constructor(
-    private applicationService: ApplicationService,
-    private apiService: ApiService
+    public applicationService: ApplicationService,
+    public apiService: ApiService
   ) { }
 
   public getProfile() {

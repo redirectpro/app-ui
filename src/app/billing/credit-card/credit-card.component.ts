@@ -11,7 +11,7 @@ import { CreditCardService } from './credit-card.service';
 export class CreditCardComponent implements OnInit {
   creditCardService: CreditCardService;
 
-  constructor(private applicationService: ApplicationService) {
+  constructor(public applicationService: ApplicationService) {
     this.creditCardService = new CreditCardService(this.applicationService);
   }
 

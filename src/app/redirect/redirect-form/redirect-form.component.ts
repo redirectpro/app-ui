@@ -18,9 +18,9 @@ export class RedirectFormComponent implements OnInit {
   event: EventEmitter = new EventEmitter();
 
   constructor(
-    private applicationService: ApplicationService,
-    private router: Router,
-    private route: ActivatedRoute
+    public applicationService: ApplicationService,
+    public router: Router,
+    public route: ActivatedRoute
   ) {
 
     this.event.on('ready', () => {

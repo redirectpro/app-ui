@@ -8,8 +8,8 @@ export class ApplicationBillingService {
   plans: Array<Object>;
 
   constructor(
-    private applicationService: ApplicationService,
-    private apiService: ApiService
+    public applicationService: ApplicationService,
+    public apiService: ApiService
   ) { }
 
   public getPlans() {

@@ -7,8 +7,8 @@ export class ApplicationRedirectService {
   applicationId: String;
 
   constructor(
-    private applicationService: ApplicationService,
-    private apiService: ApiService
+    public applicationService: ApplicationService,
+    public apiService: ApiService
   ) {
   }
 

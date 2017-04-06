@@ -14,7 +14,7 @@ export class PlanComponent implements OnInit {
   creditCardService: CreditCardService;
 
   constructor(
-      private applicationService: ApplicationService,
+      public applicationService: ApplicationService,
       public dialogService: DialogService
   ) {
     this.creditCardService = new CreditCardService(applicationService);

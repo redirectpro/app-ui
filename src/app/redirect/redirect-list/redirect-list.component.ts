@@ -13,7 +13,7 @@ export class RedirectListComponent implements OnInit {
   event: EventEmitter = new EventEmitter();
 
   constructor(
-    private applicationService: ApplicationService,
+    public applicationService: ApplicationService,
     public dialogService: DialogService
   ) {
     this.event.on('ready', () => {

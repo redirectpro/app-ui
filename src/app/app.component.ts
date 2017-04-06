@@ -13,7 +13,7 @@ export class AppComponent implements OnInit {
   userProfile: Object;
   billingProfile: Object;
 
-  constructor(private authService: AuthService, private applicationService: ApplicationService) { }
+  constructor(public authService: AuthService, public applicationService: ApplicationService) { }
 
   ngOnInit() {
     if (this.authService.authenticated() === true) {

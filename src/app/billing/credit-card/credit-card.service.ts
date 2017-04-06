@@ -6,7 +6,7 @@ declare var StripeCheckout: any;
 @Injectable()
 export class CreditCardService {
 
-  constructor(private applicationService: ApplicationService) { }
+  constructor(public applicationService: ApplicationService) { }
 
   public updateCreditCard(callback = null) {
     const stripeHandler = StripeCheckout.configure({
