@@ -5,7 +5,6 @@ import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { RouterModule, Routes } from '@angular/router';
-import { MaterialModule } from '@angular/material';
 import { MomentModule } from 'angular2-moment';
 import { AuthGuardService } from './auth/auth-guard.service';
 import { AuthService } from './auth/auth.service';
@@ -13,6 +12,10 @@ import { ApiService } from './api/api.service';
 import { ApplicationService } from './application/application.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { DialogService } from './dialog/dialog.service';
+import {
+  MdButtonModule, MdDialogModule, MdMenuModule,
+  MdInputModule, MdGridListModule, MdIconModule
+} from '@angular/material';
 
 import { AppComponent } from './app.component';
 import { DialogComponent } from './dialog/dialog.component';
@@ -49,9 +52,9 @@ const routes: Routes = [
     FormsModule, ReactiveFormsModule,
     HttpModule,
     RouterModule.forRoot(routes),
-    MaterialModule,
     BrowserAnimationsModule,
-    MomentModule
+    MomentModule,
+    MdButtonModule, MdDialogModule, MdMenuModule, MdInputModule, MdGridListModule, MdIconModule
   ],
   entryComponents: [ DialogComponent ],
   exports: [RouterModule],
