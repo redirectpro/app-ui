@@ -1,9 +1,12 @@
 machine:
   node:
-    version: 6.9.4
+    version: 7.6.0
 deployment:
   development:
     branch: master
     commands:
       - aws configure set region eu-central-1
-      - ./deploy.sh
+      - npm install
+      - ./node_modules/.bin/ng build --e=staging
+      - echo ${CIRCLE_SHA1:0:7} > dist/version.txt
+      - aws s3 sync --acl public-read --delete ./dist/ s3://app-staging.redirectpro.io
