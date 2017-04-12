@@ -2,8 +2,8 @@ machine:
   node:
     version: 7.6.0
 deployment:
-  development:
-    branch: master
+  release:
+    tag: /v.*/
     commands:
       - aws configure set region eu-central-1
       - npm install
