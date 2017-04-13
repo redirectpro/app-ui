@@ -10,4 +10,4 @@ deployment:
       - sh src/environments/environment.generator.sh > src/environments/environment.ts
       - ./node_modules/.bin/ng build --sourcemaps
       - echo ${CIRCLE_SHA1:0:7} > dist/version.txt
-      - aws s3 sync --acl public-read --delete ./dist/ s3://app-staging.redirectpro.io
+      - aws s3 sync --acl public-read --delete ./dist/ s3://$AWS_S3_BUCKET
