@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { ApplicationService } from '../../application/application.service';
+import { environment } from '../../../environments/environment';
 
 declare var StripeCheckout: any;
 
@@ -10,7 +11,7 @@ export class CreditCardService {
 
   public updateCreditCard(callback = null) {
     const stripeHandler = StripeCheckout.configure({
-      key: 'pk_test_gd8acLzybCR3OFkN5BQa8r5z',
+      key: environment.stripeSecretKey,
       image: 'https://stripe.com/img/documentation/checkout/marketplace.png',
       locale: 'auto',
       token: (token) => {

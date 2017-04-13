@@ -1,15 +1,13 @@
-<p>
-  redirect-list works!
-</p>
+<h4>redirect-list works!</h4>
 
-<div *ngIf="applicationService.ready">
-  <ul>
-    <li *ngFor="let redirect of listRedirect">
-    {{ redirect.hostTarget }} - {{ redirect.hostSources }}
-    <button md-button routerLink="/redirect/{{ redirect.id }}/edit">Edit</button>
-    <button md-button (click)="deleteRedirect(redirect.id, redirect.hostTarget)">Delete</button>
-    </li>
-  </ul>
+<div *ngIf="applicationService.ready" style="min-width: 500px">
+  <ng-container *ngFor="let redirect of listRedirect">
+    <div fxLayout="row">
+      <div fxFlex="80">{{ redirect.hostTarget }} - {{ redirect.hostSources }}</div>
+      <div fxFlex><button md-button routerLink="/redirect/{{ redirect.id }}/edit">mode edit</button></div>
+      <div fxFlex><button md-button (click)="deleteRedirect(redirect.id, redirect.hostTarget)">delete</button></div>
+    </div>
+  </ng-container>
 
   <button md-button routerLink="/redirect/new">Add new redirect</button>
 </div>

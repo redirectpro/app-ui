@@ -14,7 +14,7 @@ export class ApiService {
   url: String;
 
   constructor(public http: Http) {
-    this.url =  environment.baseUrl;
+    this.url =  environment.apiUrl;
 
     this.user = new ApiUserService(this);
     this.billing = new ApiBillingService(this);

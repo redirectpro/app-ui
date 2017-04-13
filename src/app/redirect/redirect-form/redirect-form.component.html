@@ -1,8 +1,6 @@
-<p>
-  redirect-form works!
-</p>
+<h4>redirect-form works!</h4>
 
-<form #f="ngForm" novalidate (ngSubmit)="save(f.value, f.valid)">
+<form #f="ngForm" novalidate (ngSubmit)="save(f.value, f.valid)" style="min-width: 500px">
   <p>
     <md-input-container class="example-full-width">
       <input mdInput placeholder="Your target host" name="hostTarget" [(ngModel)]="redirect.hostTarget" required />

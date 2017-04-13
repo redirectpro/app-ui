@@ -16,18 +16,19 @@ import {
   MdButtonModule, MdDialogModule, MdMenuModule,
   MdInputModule, MdGridListModule, MdIconModule
 } from '@angular/material';
+import { FlexLayoutModule } from '@angular/flex-layout';
 
 import { AppComponent } from './app.component';
 import { DialogComponent } from './dialog/dialog.component';
 import { AccountComponent } from './account/account.component';
-import { DashboardComponent } from './dashboard/dashboard.component';
+import { HomeComponent } from './home/home.component';
 import { PlanComponent } from './billing/plan/plan.component';
 import { CreditCardComponent } from './billing/credit-card/credit-card.component';
 import { RedirectListComponent } from './redirect/redirect-list/redirect-list.component';
 import { RedirectFormComponent } from './redirect/redirect-form/redirect-form.component';
 
 const routes: Routes = [
-  { path: '', component: DashboardComponent },
+  { path: '', component: HomeComponent },
   { path: 'account', component: AccountComponent, canActivate: [ AuthGuardService ] },
   { path: 'billing', children: [
     { path: '', redirectTo: '/', pathMatch: 'full', canActivate: [ AuthGuardService ] },
@@ -45,7 +46,7 @@ const routes: Routes = [
 @NgModule({
   declarations: [
     AppComponent, DialogComponent,
-    AccountComponent, DashboardComponent, PlanComponent, CreditCardComponent, RedirectListComponent, RedirectFormComponent
+    AccountComponent, HomeComponent, PlanComponent, CreditCardComponent, RedirectListComponent, RedirectFormComponent
   ],
   imports: [
     BrowserModule,
@@ -54,7 +55,8 @@ const routes: Routes = [
     RouterModule.forRoot(routes),
     BrowserAnimationsModule,
     MomentModule,
-    MdButtonModule, MdDialogModule, MdMenuModule, MdInputModule, MdGridListModule, MdIconModule
+    MdButtonModule, MdDialogModule, MdMenuModule, MdInputModule, MdGridListModule, MdIconModule,
+    FlexLayoutModule
   ],
   entryComponents: [ DialogComponent ],
   exports: [RouterModule],

@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { tokenNotExpired } from 'angular2-jwt';
 import { Router } from '@angular/router';
 import { ApplicationService } from '../application/application.service';
+import { environment } from '../../environments/environment';
 
 // Avoid name not found warnings
 declare var Auth0Lock: any;
@@ -10,7 +11,7 @@ declare var Auth0Lock: any;
 export class AuthService {
 
   // Configure Auth0
-  lock = new Auth0Lock('n1K6ZPkvgD7eLuKLXCBOy8d3dfnKlTAc', 'keepat.eu.auth0.com', {
+  lock = new Auth0Lock(environment.auth0ClintId, environment.auth0Domain, {
     auth: {
       redirectUrl: window.location.origin,
       responseType: 'token',
