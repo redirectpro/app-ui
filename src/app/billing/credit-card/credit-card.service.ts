@@ -11,7 +11,7 @@ export class CreditCardService {
 
   public updateCreditCard(callback = null) {
     const stripeHandler = StripeCheckout.configure({
-      key: environment.stripeSecretKey,
+      key: environment.stripePublicKey,
       image: 'https://stripe.com/img/documentation/checkout/marketplace.png',
       locale: 'auto',
       token: (token) => {
