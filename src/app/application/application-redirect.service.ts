@@ -66,4 +66,26 @@ export class ApplicationRedirectService {
         );
     });
   }
+
+  public postUpload(redirectId: String, file: any) {
+    return new Promise((resolve, reject) => {
+      this.apiService.redirect.postUpload(this.applicationService.id, redirectId, file)
+        .subscribe(
+          data => {
+            return resolve(data);
+          }
+        );
+    });
+  }
+
+  public getUploadJob(redirectId: String, jobId: String) {
+    return new Promise((resolve, reject) => {
+      this.apiService.redirect.getUploadJob(this.applicationService.id, redirectId, jobId)
+        .subscribe(
+          data => {
+            return resolve(data);
+          }
+        )
+    })
+  }
 }

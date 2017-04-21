@@ -15,7 +15,7 @@ import { DialogService } from './dialog/dialog.service';
 import {
   MdButtonModule, MdDialogModule, MdMenuModule,
   MdInputModule, MdGridListModule, MdIconModule,
-  MdSelectModule
+  MdSelectModule, MdProgressBarModule
 } from '@angular/material';
 import { FlexLayoutModule } from '@angular/flex-layout';
 
@@ -56,7 +56,8 @@ const routes: Routes = [
     RouterModule.forRoot(routes),
     BrowserAnimationsModule,
     MomentModule,
-    MdButtonModule, MdDialogModule, MdMenuModule, MdInputModule, MdGridListModule, MdIconModule, MdSelectModule,
+    MdButtonModule, MdDialogModule, MdMenuModule, MdInputModule, MdGridListModule, MdIconModule,
+    MdSelectModule, MdProgressBarModule,
     FlexLayoutModule
   ],
   entryComponents: [ DialogComponent ],

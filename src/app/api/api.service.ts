@@ -21,11 +21,16 @@ export class ApiService {
     this.redirect = new ApiRedirectService(this);
   }
 
-  public requestOptions() {
+  public requestOptions(sendingFile: Boolean = false) {
     const headers = new Headers({
-      'Content-Type': 'application/json',
+      'Accept': 'application/json',
       'Authorization': 'Bearer ' + localStorage.getItem('id_token')
     });
+
+    if (!sendingFile) {
+      headers.append('Content-Type', 'application/json');
+    }
+
     const requestOptions = new RequestOptions({ headers: headers });
     return requestOptions;
   }

@@ -27,10 +27,24 @@
 
 </form>
 
-<hr />
+<div *ngIf="redirect.id">
+  <h2>Upload your redirect table</h2>
+  <input type="file" id="file" name="file" (change)="fileChange($event)">
+</div>
 
-Testing file upload:
-<input type="file" id="file" name="file" (change)="fileChange($event)">
+<div *ngIf="jobFailedReason">
+  <h3>{{ jobFailedReason }}</h3>
+</div>
+
+<div *ngIf="jobId">
+  <h2>Result</h2>
+
+  <md-progress-bar
+      [color]="primary"
+      [mode]="determinate"
+      [value]="jobProgress || 0">
+  </md-progress-bar>
+</div>
 
 <div *ngIf="f">
   <pre>Is form valid?: <br>{{f.valid | json}}</pre>

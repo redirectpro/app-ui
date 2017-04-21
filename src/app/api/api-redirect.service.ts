@@ -47,4 +47,20 @@ export class ApiRedirectService {
       .catch(this.apiService.handleError);
   }
 
+  public postUpload(applicationId: String, redirectId: String, file: any) {
+    const formData: FormData = new FormData();
+    formData.append('file', file, file.name);
+    return this.http
+      .post(this.url + `/${applicationId}/redirect/${redirectId}/upload`, formData, this.apiService.requestOptions(true))
+      .map(this.apiService.extractData)
+      .catch(this.apiService.handleError);
+  }
+
+  public getUploadJob(applicationId: String, redirectId: String, jobId: String) {
+    return this.http
+      .get(this.url + `/${applicationId}/redirect/${redirectId}/upload/${jobId}`, this.apiService.requestOptions())
+      .map(this.apiService.extractData)
+      .catch(this.apiService.handleError);
+  }
+
 }
