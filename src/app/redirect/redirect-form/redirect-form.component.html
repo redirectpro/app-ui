@@ -2,8 +2,13 @@
 
 <form #f="ngForm" novalidate (ngSubmit)="save(f.value, f.valid)" style="min-width: 500px">
   <p>
+    <md-select placeholder="Protocol" [(ngModel)]="redirect.targetProtocol" name="targetProtocol">
+      <md-option value="http">http</md-option>
+      <md-option value="https">https</md-option>
+    </md-select>
+
     <md-input-container class="example-full-width">
-      <input mdInput placeholder="Your target host" name="hostTarget" [(ngModel)]="redirect.hostTarget" required />
+      <input mdInput placeholder="Your target host" name="targetHost" [(ngModel)]="redirect.targetHost" required />
       <md-error>Target host is a required field.</md-error>
     </md-input-container>
   </p>
@@ -19,10 +24,16 @@
     <button color="primary" md-raised-button>Submit</button>
   </p>
 
-  <div *ngIf="f">
-    <pre>Is form valid?: <br>{{f.valid | json}}</pre>
-    <pre>Is form submitted?: <br>{{f.submitted | json}}</pre>
-    <pre>submitted value: <br>{{f.value | json}}</pre>
-  </div>
 
 </form>
+
+<hr />
+
+Testing file upload:
+<input type="file" id="file" name="file" (change)="fileChange($event)">
+
+<div *ngIf="f">
+  <pre>Is form valid?: <br>{{f.valid | json}}</pre>
+  <pre>Is form submitted?: <br>{{f.submitted | json}}</pre>
+  <pre>submitted value: <br>{{f.value | json}}</pre>
+</div>

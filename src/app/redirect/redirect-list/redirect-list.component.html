@@ -3,9 +3,9 @@
 <div *ngIf="applicationService.ready" style="min-width: 500px">
   <ng-container *ngFor="let redirect of listRedirect">
     <div fxLayout="row">
-      <div fxFlex="80">{{ redirect.hostTarget }} - {{ redirect.hostSources }}</div>
+      <div fxFlex="80">{{ redirect.targetProtocol }}://{{ redirect.targetHost }} - {{ redirect.hostSources }}</div>
       <div fxFlex><button md-button routerLink="/redirect/{{ redirect.id }}/edit">mode edit</button></div>
-      <div fxFlex><button md-button (click)="deleteRedirect(redirect.id, redirect.hostTarget)">delete</button></div>
+      <div fxFlex><button md-button (click)="deleteRedirect(redirect.id, redirect.targetHost)">delete</button></div>
     </div>
   </ng-container>
 

@@ -7,10 +7,7 @@ import { EventEmitter } from 'events';
 @Component({
   selector: 'app-redirect-form',
   templateUrl: './redirect-form.component.html',
-  styleUrls: ['./redirect-form.component.css'],
-  host: {
-    class: 'test'
-  }
+  styleUrls: ['./redirect-form.component.css']
 })
 export class RedirectFormComponent implements OnInit {
   redirect: Redirect;
@@ -43,7 +40,8 @@ export class RedirectFormComponent implements OnInit {
     }
 
     this.redirect = {
-      hostTarget: '',
+      targetHost: '',
+      targetProtocol: 'http',
       hostSources: [ ]
     };
   }
@@ -72,9 +70,40 @@ export class RedirectFormComponent implements OnInit {
     }
   }
 
+  fileChange(event) {
+    const fileList: FileList = event.target.files;
+    console.log(1)
+    if (fileList.length > 0) {
+      console.log(2)
+      const file: File = fileList[0];
+      this.applicationService.redirect.postUpload(this.redirectId, file).then((data) => {
+        console.log(3)
+        console.log(data);
+        console.log('uploaded');
+      });
+
+  //     const formData: FormData = new FormData();
+  //     formData.append('uploadFile', file, file.name);
+  //     const headers = new Headers();
+  //     headers.append('Content-Type', 'multipart/form-data');
+  //     headers.append('Accept', 'application/json');
+  //     console.log('foi!!!');
+  //     console.log(file);
+  //     console.log(file.name)
+  //     // const options = new RequestOptions({ headers: headers });
+  //     // this.http.post(`${this.apiEndPoint}`, formData, options)
+  //     //   .map(res => res.json())
+  //     //   .catch(error => Observable.throw(error))
+  //     //   .subscribe(
+  //     //     data => console.log('success'),
+  //     //     error => console.log(error)
+  //     //   )
+    }
+  }
 }
 
 interface Redirect {
-    hostTarget: String;
+    targetHost: String;
+    targetProtocol: String;
     hostSources: Array<String>;
 }
