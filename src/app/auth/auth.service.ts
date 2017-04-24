@@ -16,7 +16,7 @@ export class AuthService {
       redirectUrl: window.location.origin,
       responseType: 'token',
       params: {
-        scope: 'openid email' // Learn about scopes: https://auth0.com/docs/scopes
+        scope: 'openid email'
       }
     }
   });
@@ -25,16 +25,17 @@ export class AuthService {
   userProfile: Object;
 
   constructor(public router: Router, public applicationService: ApplicationService) {
-
-    // Set userProfile attribute of already saved profile
-    // this.userProfile = this.getUserProfile();
-
     // Add callback for lock `authenticated` event
     this.lock.on('authenticated', (authResult) => {
       localStorage.setItem('id_token', authResult.idToken);
       localStorage.setItem('access_token', authResult.accessToken);
-
-      this.applicationService.initialize();
+      this.applicationService.initialize().then(() => {
+        const redirectUrl = localStorage.getItem('redirect_url');
+        if (redirectUrl) {
+          localStorage.removeItem('redirect_url');
+          this.router.navigateByUrl(redirectUrl);
+        }
+      });
     });
   }
 

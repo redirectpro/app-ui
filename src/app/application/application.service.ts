@@ -22,14 +22,18 @@ export class ApplicationService  {
   }
 
   public initialize() {
-    this.user.updateProfile().then(() => {
-      this.id = this.user.profile['applications'][0].id;
-      const p1 = this.billing.updateProfile();
-      const p2 = this.billing.updatePlans();
+    return new Promise ((resolve, reject) => {
+      this.user.updateProfile().then(() => {
+        this.id = this.user.profile['applications'][0].id;
+        const p1 = this.billing.updateProfile();
+        const p2 = this.billing.updatePlans();
 
-      Promise.all([p1, p2]).then(() => {
-        this.event.emit('ready', true);
-      }).catch((err) => {
+        return Promise.all([p1, p2]).then(() => {
+          this.event.emit('ready', true);
+          resolve();
+        }).catch((err) => {
+          reject();
+        });
       });
     });
   }
