@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from '../../auth/auth.service';
 import { ApplicationService } from '../../application/application.service';
 import { DialogService } from '../../dialog/dialog.service';
 import { CreditCardService } from '../credit-card/credit-card.service';

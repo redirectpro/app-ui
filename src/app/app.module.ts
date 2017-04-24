@@ -7,7 +7,6 @@ import { HttpModule } from '@angular/http';
 import { RouterModule, Routes } from '@angular/router';
 import { MomentModule } from 'angular2-moment';
 import { AuthGuardService } from './auth/auth-guard.service';
-import { AuthService } from './auth/auth.service';
 import { ApiService } from './api/api.service';
 import { ApplicationService } from './application/application.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -22,14 +21,17 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { AppComponent } from './app.component';
 import { DialogComponent } from './dialog/dialog.component';
 import { AccountComponent } from './account/account.component';
-import { HomeComponent } from './home/home.component';
 import { PlanComponent } from './billing/plan/plan.component';
 import { CreditCardComponent } from './billing/credit-card/credit-card.component';
 import { RedirectListComponent } from './redirect/redirect-list/redirect-list.component';
 import { RedirectFormComponent } from './redirect/redirect-form/redirect-form.component';
+import { LoginComponent } from './auth/login/login.component';
+import { LogoutComponent } from './auth/logout/logout.component';
 
 const routes: Routes = [
-  { path: '', component: HomeComponent },
+  { path: '', component: RedirectListComponent, canActivate: [ AuthGuardService ] },
+  { path: 'login', component: LoginComponent },
+  { path: 'logout', component: LogoutComponent },
   { path: 'account', component: AccountComponent, canActivate: [ AuthGuardService ] },
   { path: 'billing', children: [
     { path: '', redirectTo: '/', pathMatch: 'full', canActivate: [ AuthGuardService ] },
@@ -37,7 +39,6 @@ const routes: Routes = [
     { path: 'credit-card', component: CreditCardComponent, canActivate: [ AuthGuardService ] }
   ]},
   { path: 'redirect', children: [
-    { path: '', component: RedirectListComponent, canActivate: [ AuthGuardService ] },
     { path: 'new', component: RedirectFormComponent, canActivate: [ AuthGuardService ] },
     { path: ':redirectId/edit', component: RedirectFormComponent, canActivate: [ AuthGuardService ] }
   ]},
@@ -47,7 +48,7 @@ const routes: Routes = [
 @NgModule({
   declarations: [
     AppComponent, DialogComponent,
-    AccountComponent, HomeComponent, PlanComponent, CreditCardComponent, RedirectListComponent, RedirectFormComponent
+    AccountComponent, PlanComponent, CreditCardComponent, RedirectListComponent, RedirectFormComponent, LoginComponent, LogoutComponent
   ],
   imports: [
     BrowserModule,
@@ -62,7 +63,7 @@ const routes: Routes = [
   ],
   entryComponents: [ DialogComponent ],
   exports: [RouterModule],
-  providers: [AuthGuardService, AuthService, ApiService, ApplicationService, DialogService],
+  providers: [AuthGuardService, ApiService, ApplicationService, DialogService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

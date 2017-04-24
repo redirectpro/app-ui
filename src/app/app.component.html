@@ -1,9 +1,8 @@
 <md-sidenav-container fullscreen class="containerX">
   <md-toolbar>
     <div fxLayout="row">
-      <button md-button routerLink="/">Home</button>
-      <button md-button routerLink="/redirect" *ngIf="authService.authenticated()">Redirect</button>
-      <button md-icon-button [mdMenuTriggerFor]="menu" *ngIf="authService.authenticated()">
+      <button md-button routerLink="/">Redirects</button>
+      <button md-icon-button [mdMenuTriggerFor]="menu">
         <md-icon>more_vert</md-icon>
       </button>
       <md-menu #menu="mdMenu">
@@ -20,8 +19,7 @@
           <span>Credit Card</span>
         </button>
       </md-menu>
-      <button md-button class="btn btn-primary btn-margin" (click)="authService.login()" *ngIf="!authService.authenticated()">Log In</button>
-      <button md-button class="btn btn-primary btn-margin" (click)="authService.logout()" *ngIf="authService.authenticated()">Log Out</button>
+      <button md-button routerLink="/logout">Logout</button>
       <button md-button class="btn btn-primary btn-margin" disabled>{{ applicationService.id }}</button>
     </div>
   </md-toolbar>

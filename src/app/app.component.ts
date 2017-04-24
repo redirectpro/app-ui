@@ -1,22 +1,21 @@
-import { Component, ViewEncapsulation, OnInit } from '@angular/core';
-import { AuthService } from './auth/auth.service';
+import { Component, OnInit } from '@angular/core';
 import { ApplicationService } from './application/application.service';
+import { tokenNotExpired } from 'angular2-jwt';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css'],
-  providers: [AuthService]
+  styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
   title = 'app works!';
   userProfile: Object;
   billingProfile: Object;
 
-  constructor(public authService: AuthService, public applicationService: ApplicationService) { }
+  constructor(public applicationService: ApplicationService) { }
 
   ngOnInit() {
-    if (this.authService.authenticated() === true) {
+    if (tokenNotExpired()) {
       this.applicationService.initialize();
     }
   }
