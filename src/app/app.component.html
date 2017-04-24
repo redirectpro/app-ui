@@ -7,19 +7,22 @@
       </button>
       <md-menu #menu="mdMenu">
         <button md-menu-item routerLink="/account">
-          <md-icon>dialpad</md-icon>
+          <md-icon>account_box</md-icon>
           <span>Profile</span>
         </button>
         <button md-menu-item routerLink="/billing/plans">
-          <md-icon>notifications_off</md-icon>
+          <md-icon>dehaze</md-icon>
           <span>Plans</span>
         </button>
         <button md-menu-item routerLink="/billing/credit-card">
-          <md-icon>notifications_off</md-icon>
+          <md-icon>credit_card</md-icon>
           <span>Credit Card</span>
         </button>
+        <button md-menu-item routerLink="/logout">
+          <md-icon>cancel</md-icon>
+          <span>Logout</span>
+        </button>
       </md-menu>
-      <button md-button routerLink="/logout">Logout</button>
       <button md-button class="btn btn-primary btn-margin" disabled>{{ applicationService.id }}</button>
     </div>
   </md-toolbar>
