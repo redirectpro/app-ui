@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
-import { ApplicationService } from '../../application/application.service';
+import { ApplicationService } from '../../shared/application/application.service';
 import { environment } from '../../../environments/environment';
 
 declare var StripeCheckout: any;
 
 @Injectable()
-export class CreditCardService {
+export class BillingService {
 
   constructor(public applicationService: ApplicationService) { }
 

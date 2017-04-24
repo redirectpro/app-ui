@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { ApplicationService } from '../../application/application.service';
+import { ApplicationService } from '../../shared/application/application.service';
 import { EventEmitter } from 'events';
-import { DialogService } from '../../dialog/dialog.service';
+import { DialogService } from '../../shared/dialog/dialog.service';
 
 @Component({
   selector: 'app-redirect-list',

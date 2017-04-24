@@ -1,22 +1,22 @@
 import { Component, OnInit } from '@angular/core';
-import { ApplicationService } from '../../application/application.service';
-import { DialogService } from '../../dialog/dialog.service';
-import { CreditCardService } from '../credit-card/credit-card.service';
+import { ApplicationService } from '../../shared/application/application.service';
+import { DialogService } from '../../shared/dialog/dialog.service';
+import { BillingService } from '../shared/billing.service';
 import * as moment from 'moment';
 
 @Component({
   selector: 'app-plan',
-  templateUrl: './plan.component.html',
-  styleUrls: ['./plan.component.css']
+  templateUrl: './billing-plan.component.html',
+  styleUrls: ['./billing-plan.component.css']
 })
-export class PlanComponent implements OnInit {
-  creditCardService: CreditCardService;
+export class BillingPlanComponent implements OnInit {
+  billingService: BillingService;
 
   constructor(
       public applicationService: ApplicationService,
       public dialogService: DialogService
   ) {
-    this.creditCardService = new CreditCardService(applicationService);
+    this.billingService = new BillingService(applicationService);
   }
 
   ngOnInit() {
@@ -30,7 +30,7 @@ export class PlanComponent implements OnInit {
     };
 
     if (!this.applicationService.billing.profile['card']) {
-      this.creditCardService.updateCreditCard(callback);
+      this.billingService.updateCreditCard(callback);
     } else {
       callback();
     }

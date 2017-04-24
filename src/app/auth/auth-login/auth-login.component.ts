@@ -1,15 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
-import { ApplicationService } from '../../application/application.service';
+import { ApplicationService } from '../../shared/application/application.service';
 import { environment } from '../../../environments/environment';
 import Auth0Lock from 'auth0-lock';
 
 @Component({
-  selector: 'app-login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+  selector: 'app-auth-login',
+  templateUrl: './auth-login.component.html',
+  styleUrls: ['./auth-login.component.css']
 })
-export class LoginComponent implements OnInit {
+export class AuthLoginComponent implements OnInit {
   lock: Auth0Lock;
   onAuthenticated: Boolean;
 
@@ -25,7 +25,7 @@ export class LoginComponent implements OnInit {
     });
 
     this.lock = new Auth0Lock(environment.auth0ClintId, environment.auth0Domain, {
-      container: 'container-login',
+      container: 'container-auth-login',
       auth: {
         redirectUrl: window.location.href,
         responseType: 'token',

@@ -2,12 +2,12 @@
 
 <form #f="ngForm" novalidate (ngSubmit)="save(f.value, f.valid)" style="min-width: 500px">
   <p>
-    <md-select placeholder="Protocol" [(ngModel)]="redirect.targetProtocol" name="targetProtocol">
+    <md-select placeholder="Protocol" [(ngModel)]="redirect.targetProtocol" name="targetProtocol" required>
       <md-option value="http">http</md-option>
       <md-option value="https">https</md-option>
     </md-select>
 
-    <md-input-container class="example-full-width">
+    <md-input-container>
       <input mdInput placeholder="Your target host" name="targetHost" [(ngModel)]="redirect.targetHost" required />
       <md-error>Target host is a required field.</md-error>
     </md-input-container>

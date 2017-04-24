@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { CreditCardComponent } from './credit-card.component';
+import { LogoutComponent } from './auth-logout.component';
 
-describe('CreditCardComponent', () => {
-  let component: CreditCardComponent;
-  let fixture: ComponentFixture<CreditCardComponent>;
+describe('AuthLogoutComponent', () => {
+  let component: AuthLogoutComponent;
+  let fixture: ComponentFixture<AuthLogoutComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ CreditCardComponent ]
+      declarations: [ AuthLogoutComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(CreditCardComponent);
+    fixture = TestBed.createComponent(AuthLogoutComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

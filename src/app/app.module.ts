@@ -6,11 +6,11 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { RouterModule, Routes } from '@angular/router';
 import { MomentModule } from 'angular2-moment';
-import { AuthGuardService } from './auth/auth-guard.service';
-import { ApiService } from './api/api.service';
-import { ApplicationService } from './application/application.service';
+import { AuthGuardService } from './auth/shared/auth-guard.service';
+import { ApiService } from './shared/api/api.service';
+import { ApplicationService } from './shared/application/application.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { DialogService } from './dialog/dialog.service';
+import { DialogService } from './shared/dialog/dialog.service';
 import {
   MdButtonModule, MdDialogModule, MdMenuModule,
   MdInputModule, MdGridListModule, MdIconModule,
@@ -19,24 +19,24 @@ import {
 import { FlexLayoutModule } from '@angular/flex-layout';
 
 import { AppComponent } from './app.component';
-import { DialogComponent } from './dialog/dialog.component';
+import { DialogComponent } from './shared/dialog/dialog.component';
 import { AccountComponent } from './account/account.component';
-import { PlanComponent } from './billing/plan/plan.component';
-import { CreditCardComponent } from './billing/credit-card/credit-card.component';
+import { BillingPlanComponent } from './billing/billing-plan/billing-plan.component';
+import { BillingCreditCardComponent } from './billing/billing-credit-card/billing-credit-card.component';
 import { RedirectListComponent } from './redirect/redirect-list/redirect-list.component';
 import { RedirectFormComponent } from './redirect/redirect-form/redirect-form.component';
-import { LoginComponent } from './auth/login/login.component';
-import { LogoutComponent } from './auth/logout/logout.component';
+import { AuthLoginComponent } from './auth/auth-login/auth-login.component';
+import { AuthLogoutComponent } from './auth/auth-logout/auth-logout.component';
 
 const routes: Routes = [
   { path: '', component: RedirectListComponent, canActivate: [ AuthGuardService ] },
-  { path: 'login', component: LoginComponent },
-  { path: 'logout', component: LogoutComponent },
+  { path: 'login', component: AuthLoginComponent },
+  { path: 'logout', component: AuthLogoutComponent },
   { path: 'account', component: AccountComponent, canActivate: [ AuthGuardService ] },
   { path: 'billing', children: [
     { path: '', redirectTo: '/', pathMatch: 'full', canActivate: [ AuthGuardService ] },
-    { path: 'plans', component: PlanComponent, canActivate: [ AuthGuardService ] },
-    { path: 'credit-card', component: CreditCardComponent, canActivate: [ AuthGuardService ] }
+    { path: 'plans', component: BillingPlanComponent, canActivate: [ AuthGuardService ] },
+    { path: 'credit-card', component: BillingCreditCardComponent, canActivate: [ AuthGuardService ] }
   ]},
   { path: 'redirect', children: [
     { path: 'new', component: RedirectFormComponent, canActivate: [ AuthGuardService ] },
@@ -48,7 +48,8 @@ const routes: Routes = [
 @NgModule({
   declarations: [
     AppComponent, DialogComponent,
-    AccountComponent, PlanComponent, CreditCardComponent, RedirectListComponent, RedirectFormComponent, LoginComponent, LogoutComponent
+    AccountComponent, BillingPlanComponent, BillingCreditCardComponent, RedirectListComponent, RedirectFormComponent,
+    AuthLoginComponent, AuthLogoutComponent
   ],
   imports: [
     BrowserModule,

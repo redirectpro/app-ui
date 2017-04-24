@@ -2,11 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-logout',
-  templateUrl: './logout.component.html',
-  styleUrls: ['./logout.component.css']
+  selector: 'app-auth-logout',
+  templateUrl: './auth-logout.component.html',
+  styleUrls: ['./auth-logout.component.css']
 })
-export class LogoutComponent implements OnInit {
+export class AuthLogoutComponent implements OnInit {
 
   constructor(public router: Router) { }
 

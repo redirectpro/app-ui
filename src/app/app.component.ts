@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ApplicationService } from './application/application.service';
+import { ApplicationService } from './shared/application/application.service';
 import { tokenNotExpired } from 'angular2-jwt';
 
 @Component({
