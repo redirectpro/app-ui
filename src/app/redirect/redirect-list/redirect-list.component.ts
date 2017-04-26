@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { ApplicationService } from '../../shared/application/application.service';
 import { EventEmitter } from 'events';
 import { DialogService } from '../../shared/dialog/dialog.service';
+import { MdDialog } from '@angular/material';
+import { RedirectFormComponent } from '../redirect-form/redirect-form.component';
+import { RedirectModel } from '../shared/redirect.model';
 
 @Component({
   selector: 'app-redirect-list',
@@ -9,12 +12,13 @@ import { DialogService } from '../../shared/dialog/dialog.service';
   styleUrls: ['./redirect-list.component.css']
 })
 export class RedirectListComponent implements OnInit {
-  listRedirect: Array<Object>;
+  listRedirect: Array<RedirectModel>;
   event: EventEmitter = new EventEmitter();
 
   constructor(
     public applicationService: ApplicationService,
-    public dialogService: DialogService
+    public dialogService: DialogService,
+    public dialog: MdDialog
   ) {
     this.event.on('ready', () => {
       this.getRedirectList();
@@ -32,7 +36,7 @@ export class RedirectListComponent implements OnInit {
   }
 
   getRedirectList() {
-    this.applicationService.redirect.getRedirects().then((data: Array<Object>) => {
+    this.applicationService.redirect.getRedirects().then((data: Array<RedirectModel>) => {
       this.listRedirect = data;
     });
   }
@@ -53,4 +57,34 @@ export class RedirectListComponent implements OnInit {
       }
     });
   }
+
+  openDialog(redirect?: RedirectModel) {
+    const dialogRef = this.dialog.open(RedirectFormComponent);
+
+    dialogRef.afterClosed().subscribe((result: RedirectModel) => {
+      console.log('update list');
+      this.updateList(result);
+    });
+
+    if (redirect) {
+      dialogRef.componentInstance.setRedirect(redirect);
+    }
+  }
+
+  updateList(result: RedirectModel) {
+    if (!result) { return false; }
+    const update = this.listRedirect.find((e: RedirectModel) => {
+      return (e.id === result.id);
+    });
+
+    if (update) {
+      this.listRedirect.map((e: RedirectModel) => {
+        if (e.id === result.id) { Object.assign(e, result); }
+        return e;
+      });
+    } else {
+      this.listRedirect.push(result);
+    }
+  }
+
 }

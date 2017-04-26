@@ -25,6 +25,7 @@ import { BillingPlanComponent } from './billing/billing-plan/billing-plan.compon
 import { BillingCreditCardComponent } from './billing/billing-credit-card/billing-credit-card.component';
 import { RedirectListComponent } from './redirect/redirect-list/redirect-list.component';
 import { RedirectFormComponent } from './redirect/redirect-form/redirect-form.component';
+import { RedirectHostSourceComponent } from './redirect/redirect-form/redirect-host-source.component';
 import { AuthLoginComponent } from './auth/auth-login/auth-login.component';
 import { AuthLogoutComponent } from './auth/auth-logout/auth-logout.component';
 
@@ -38,17 +39,14 @@ const routes: Routes = [
     { path: 'plans', component: BillingPlanComponent, canActivate: [ AuthGuardService ] },
     { path: 'credit-card', component: BillingCreditCardComponent, canActivate: [ AuthGuardService ] }
   ]},
-  { path: 'redirect', children: [
-    { path: 'new', component: RedirectFormComponent, canActivate: [ AuthGuardService ] },
-    { path: ':redirectId/edit', component: RedirectFormComponent, canActivate: [ AuthGuardService ] }
-  ]},
   { path: '**', redirectTo: '' }
 ];
 
 @NgModule({
   declarations: [
     AppComponent, DialogComponent,
-    AccountComponent, BillingPlanComponent, BillingCreditCardComponent, RedirectListComponent, RedirectFormComponent,
+    AccountComponent, BillingPlanComponent, BillingCreditCardComponent, RedirectListComponent, 
+    RedirectFormComponent, RedirectHostSourceComponent,
     AuthLoginComponent, AuthLogoutComponent
   ],
   imports: [
@@ -62,7 +60,7 @@ const routes: Routes = [
     MdSelectModule, MdProgressBarModule,
     FlexLayoutModule
   ],
-  entryComponents: [ DialogComponent ],
+  entryComponents: [ DialogComponent, RedirectFormComponent ],
   exports: [RouterModule],
   providers: [AuthGuardService, ApiService, ApplicationService, DialogService],
   bootstrap: [AppComponent]
