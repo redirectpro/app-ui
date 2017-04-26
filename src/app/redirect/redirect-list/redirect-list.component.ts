@@ -28,7 +28,7 @@ export class RedirectListComponent implements OnInit {
 
   ngOnInit() {
 
-    this.applicationService.isReady().subscribe(
+    this.applicationService.isReady.subscribe(
       value => this.service.populate()
     );
 

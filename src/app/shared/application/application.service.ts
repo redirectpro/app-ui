@@ -15,6 +15,15 @@ export class ApplicationService  {
   billing: ApplicationBillingService;
   redirect: ApplicationRedirectService;
   event: EventEmitter = new EventEmitter();
+  isReady: Observable<boolean> = new Observable<boolean>((observer: Subscriber<boolean>) => {
+    if (this.ready === true) {
+      observer.next(true);
+    } else {
+      this.event.on('ready', () => {
+        observer.next(true);
+      });
+    }
+  });
 
   constructor(private apiService: ApiService) {
     this.user = new ApplicationUserService(this, this.apiService);
@@ -40,15 +49,4 @@ export class ApplicationService  {
     });
   }
 
-  public isReady() {
-    return new Observable<boolean>((observer: Subscriber<boolean>) => {
-      if (this.ready === true) {
-        observer.next(true);
-      } else {
-        this.event.on('ready', () => {
-          observer.next(true);
-        });
-      }
-    });
-  }
 }
