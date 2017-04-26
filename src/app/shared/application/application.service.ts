@@ -4,6 +4,8 @@ import { ApplicationUserService } from './application-user.service';
 import { ApplicationBillingService } from './application-billing.service';
 import { ApplicationRedirectService } from './application-redirect.service';
 import { EventEmitter } from 'events';
+import { Observable } from 'rxjs/Observable';
+import { Subscriber } from 'rxjs/Subscriber';
 
 @Injectable()
 export class ApplicationService  {
@@ -22,7 +24,7 @@ export class ApplicationService  {
   }
 
   public initialize() {
-    return new Promise ((resolve, reject) => {
+    return new Promise((resolve, reject) => {
       this.user.updateProfile().then(() => {
         this.id = this.user.profile['applications'][0].id;
         const p1 = this.billing.updateProfile();
@@ -35,6 +37,18 @@ export class ApplicationService  {
           reject();
         });
       });
+    });
+  }
+
+  public isReady() {
+    return new Observable<boolean>((observer: Subscriber<boolean>) => {
+      if (this.ready === true) {
+        observer.next(true);
+      } else {
+        this.event.on('ready', () => {
+          observer.next(true);
+        });
+      }
     });
   }
 }

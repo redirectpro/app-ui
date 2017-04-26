@@ -1,6 +1,6 @@
 <h4>redirect-list works!</h4>
 
-<div *ngIf="applicationService.ready" style="min-width: 600px">
+<div *ngIf="applicationService.isReady() | async" style="min-width: 600px">
   <ng-container *ngFor="let redirect of service.list">
     <div fxLayout="row">
       <div fxFlex="80">{{ redirect.targetProtocol }}://{{ redirect.targetHost }} - {{ redirect.hostSources }}</div>

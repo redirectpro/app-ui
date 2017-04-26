@@ -8,6 +8,7 @@ import { RedirectFromToComponent } from '../redirect-from-to/redirect-from-to.co
 import { RedirectModel } from '../shared/redirect.model';
 import { RedirectListService } from './redirect-list.service';
 
+
 @Component({
   selector: 'app-redirect-list',
   templateUrl: './redirect-list.component.html',
@@ -26,17 +27,11 @@ export class RedirectListComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.event.on('ready', () => {
-      this.service.populate();
-    });
 
-    if (this.applicationService.ready === true) {;
-      this.event.emit('ready', true);
-    } else {
-      this.applicationService.event.on('ready', () => {
-        this.event.emit('ready', true);
-      });
-    }
+    this.applicationService.isReady().subscribe(
+      value => this.service.populate()
+    );
+
   }
 
   delete(redirect: RedirectModel) {
