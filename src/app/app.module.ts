@@ -28,6 +28,7 @@ import { RedirectFormComponent } from './redirect/redirect-form/redirect-form.co
 import { RedirectHostSourceComponent } from './redirect/redirect-form/redirect-host-source.component';
 import { AuthLoginComponent } from './auth/auth-login/auth-login.component';
 import { AuthLogoutComponent } from './auth/auth-logout/auth-logout.component';
+import { RedirectFromToComponent } from './redirect/redirect-from-to/redirect-from-to.component';
 
 const routes: Routes = [
   { path: '', component: RedirectListComponent, canActivate: [ AuthGuardService ] },
@@ -47,7 +48,7 @@ const routes: Routes = [
     AppComponent, DialogComponent,
     AccountComponent, BillingPlanComponent, BillingCreditCardComponent, RedirectListComponent, 
     RedirectFormComponent, RedirectHostSourceComponent,
-    AuthLoginComponent, AuthLogoutComponent
+    AuthLoginComponent, AuthLogoutComponent, RedirectFromToComponent
   ],
   imports: [
     BrowserModule,
@@ -60,7 +61,7 @@ const routes: Routes = [
     MdSelectModule, MdProgressBarModule,
     FlexLayoutModule
   ],
-  entryComponents: [ DialogComponent, RedirectFormComponent ],
+  entryComponents: [ DialogComponent, RedirectFormComponent, RedirectFromToComponent ],
   exports: [RouterModule],
   providers: [AuthGuardService, ApiService, ApplicationService, DialogService],
   bootstrap: [AppComponent]

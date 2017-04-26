@@ -1,0 +1,23 @@
+<h1 md-dialog-title>Upload your redirect table</h1>
+<div md-dialog-content>
+
+  <input type="file" id="file" name="file" (change)="fileChange($event)">
+
+  <div *ngIf="jobFailedReason">
+    <h3>{{ jobFailedReason }}</h3>
+  </div>
+
+  <div *ngIf="jobId">
+    <h2>Result</h2>
+
+    <md-progress-bar
+        [color]="primary"
+        [mode]="determinate"
+        [value]="jobProgress || 0">
+    </md-progress-bar>
+  </div>
+
+</div>
+<div md-dialog-actions>
+  <button md-button md-dialog-close>Close</button>
+</div>

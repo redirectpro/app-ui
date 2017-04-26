@@ -1,14 +1,17 @@
 <h4>redirect-list works!</h4>
 
-<div *ngIf="applicationService.ready" style="min-width: 500px">
+<div *ngIf="applicationService.ready" style="min-width: 600px">
   <ng-container *ngFor="let redirect of listRedirect">
     <div fxLayout="row">
       <div fxFlex="80">{{ redirect.targetProtocol }}://{{ redirect.targetHost }} - {{ redirect.hostSources }}</div>
       <div fxFlex>
-        <button md-button (click)="openDialog(redirect)">edit</button>
+        <button md-button (click)="openFromTo(redirect)">From-To</button>
+      </div>
+      <div fxFlex>
+        <button md-button (click)="openForm(redirect)">edit</button>
       </div>
       <div fxFlex><button md-button (click)="deleteRedirect(redirect.id, redirect.targetHost)">delete</button></div>
     </div>
   </ng-container>
-  <button md-button (click)="openDialog()">Add new redirect</button>
+  <button md-button (click)="openForm()">Add new redirect</button>
 </div>

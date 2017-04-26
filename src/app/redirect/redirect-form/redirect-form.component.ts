@@ -6,7 +6,6 @@ import { EventEmitter } from 'events';
 import { MdDialogRef } from '@angular/material';
 import { RedirectModel } from '../shared/redirect.model';
 
-
 @Component({
   selector: 'app-redirect-form',
   templateUrl: './redirect-form.component.html',
@@ -67,21 +66,6 @@ export class RedirectFormComponent implements OnInit {
     }
   }
 
-  // getRedirect() {
-  //   this.applicationService.redirect.getRedirect(this.redirectId).then((data: RedirectModel) => {
-  //     this.myForm.controls['targetProtocol'].setValue(data.targetProtocol);
-  //     this.myForm.controls['targetHost'].setValue(data.targetHost);
-
-  //     if (data['hostSources'].length > 0) {
-  //       this.removeSourceHost(0);
-  //     }
-
-  //     for (const hostSource of data.hostSources) {
-  //       this.addSourceHost(hostSource);
-  //     }
-  //   });
-  // }
-
   transform(model) {
     const newModel: RedirectModel = {
       targetProtocol: model.targetProtocol,
@@ -112,30 +96,4 @@ export class RedirectFormComponent implements OnInit {
     }
   }
 
-  // fileChange(event) {
-  //   const fileList: FileList = event.target.files;
-  //   if (fileList.length > 0) {
-  //     const file: File = fileList[0];
-  //     this.jobFailedReason = null;
-  //     this.applicationService.redirect.postUpload(this.redirectId, file).then((data) => {
-  //       this.jobId = data['jobId'];
-  //       this.checkJob();
-  //     });
-  //   }
-  // }
-
-  // checkJob() {
-  //   this.applicationService.redirect.getUploadJob(this.redirectId, this.jobId).then((data) => {
-  //     console.log(data);
-  //     this.jobProgress = data['progress'];
-  //     if (this.jobProgress < 100 && !data['failedReason']) {
-  //       setTimeout(() => { this.checkJob(); }, 3000);
-  //     } else if (data['failedReason']) {
-  //       this.jobFailedReason = data['failedReason'];
-  //       this.jobId = null;
-  //     } else {
-  //       setTimeout(() => { this.jobId = null; }, 10000);
-  //     }
-  //   });
-  // }
 }

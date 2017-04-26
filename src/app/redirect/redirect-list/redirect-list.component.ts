@@ -4,6 +4,7 @@ import { EventEmitter } from 'events';
 import { DialogService } from '../../shared/dialog/dialog.service';
 import { MdDialog } from '@angular/material';
 import { RedirectFormComponent } from '../redirect-form/redirect-form.component';
+import { RedirectFromToComponent } from '../redirect-from-to/redirect-from-to.component';
 import { RedirectModel } from '../shared/redirect.model';
 
 @Component({
@@ -58,7 +59,7 @@ export class RedirectListComponent implements OnInit {
     });
   }
 
-  openDialog(redirect?: RedirectModel) {
+  openForm(redirect?: RedirectModel) {
     const dialogRef = this.dialog.open(RedirectFormComponent);
 
     dialogRef.afterClosed().subscribe((result: RedirectModel) => {
@@ -69,6 +70,11 @@ export class RedirectListComponent implements OnInit {
     if (redirect) {
       dialogRef.componentInstance.setRedirect(redirect);
     }
+  }
+
+  openFromTo(redirect: RedirectModel) {
+    const dialogRef = this.dialog.open(RedirectFromToComponent);
+    dialogRef.componentInstance.redirect = redirect;
   }
 
   updateList(result: RedirectModel) {
