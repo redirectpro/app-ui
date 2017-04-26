@@ -13,9 +13,11 @@ export class ApplicationUserService {
 
   public getProfile() {
     return new Promise((resolve, reject) => {
+      this.applicationService.startLoading();
       this.apiService.user.getProfile()
         .subscribe(
           data => {
+            this.applicationService.stopLoading();
             return resolve(data);
           }
         );
@@ -24,9 +26,11 @@ export class ApplicationUserService {
 
   public updateProfile() {
     return new Promise ((resolve, reject) => {
+      this.applicationService.startLoading();
       this.getProfile().then((data) => {
+        this.applicationService.stopLoading();
         this.profile = data;
-        resolve(true);
+        return resolve(true);
       });
     });
   }

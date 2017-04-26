@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { ApplicationService } from './shared/application/application.service';
 import { tokenNotExpired } from 'angular2-jwt';
+import { ApplicationService } from './shared/application/application.service';
 
 @Component({
   selector: 'app-root',
@@ -12,7 +12,8 @@ export class AppComponent implements OnInit {
   userProfile: Object;
   billingProfile: Object;
 
-  constructor(public applicationService: ApplicationService) { }
+  constructor(public applicationService: ApplicationService) {
+  }
 
   ngOnInit() {
     if (tokenNotExpired()) {
