@@ -6,6 +6,7 @@ import { MdDialog } from '@angular/material';
 import { RedirectFormComponent } from '../redirect-form/redirect-form.component';
 import { RedirectFromToComponent } from '../redirect-from-to/redirect-from-to.component';
 import { RedirectModel } from '../shared/redirect.model';
+import { RedirectListService } from './redirect-list.service';
 
 @Component({
   selector: 'app-redirect-list',
@@ -13,7 +14,7 @@ import { RedirectModel } from '../shared/redirect.model';
   styleUrls: ['./redirect-list.component.css']
 })
 export class RedirectListComponent implements OnInit {
-  listRedirect: Array<RedirectModel>;
+  service: RedirectListService;
   event: EventEmitter = new EventEmitter();
 
   constructor(
@@ -21,12 +22,14 @@ export class RedirectListComponent implements OnInit {
     public dialogService: DialogService,
     public dialog: MdDialog
   ) {
-    this.event.on('ready', () => {
-      this.getRedirectList();
-    });
+    this.service = new RedirectListService(applicationService);
   }
 
   ngOnInit() {
+    this.event.on('ready', () => {
+      this.service.populate();
+    });
+
     if (this.applicationService.ready === true) {;
       this.event.emit('ready', true);
     } else {
@@ -36,25 +39,17 @@ export class RedirectListComponent implements OnInit {
     }
   }
 
-  getRedirectList() {
-    this.applicationService.redirect.getRedirects().then((data: Array<RedirectModel>) => {
-      this.listRedirect = data;
-    });
-  }
-
-  deleteRedirect(redirectId: String, target: String) {
+  delete(redirect: RedirectModel) {
     const dialogParams = {
       title: 'Deleting redirect',
       declineText: 'Cancel',
       confirmText: 'Yes',
-      message: `Do you want to delete redirect to target ${target}?`
+      message: `Do you want to delete redirect to target ${redirect.targetHost}?`
     };
 
     this.dialogService.confirm(dialogParams).then((confirmed) => {
       if (confirmed === true) {
-        this.applicationService.redirect.deleteRedirect(redirectId).then(() => {
-          this.listRedirect = this.listRedirect.filter(e => e['id'] !== redirectId);
-        });
+        this.service.delete(redirect);
       }
     });
   }
@@ -63,8 +58,7 @@ export class RedirectListComponent implements OnInit {
     const dialogRef = this.dialog.open(RedirectFormComponent);
 
     dialogRef.afterClosed().subscribe((result: RedirectModel) => {
-      console.log('update list');
-      this.updateList(result);
+      if (result) { this.service.assign(result); }
     });
 
     if (redirect) {
@@ -75,22 +69,6 @@ export class RedirectListComponent implements OnInit {
   openFromTo(redirect: RedirectModel) {
     const dialogRef = this.dialog.open(RedirectFromToComponent);
     dialogRef.componentInstance.redirect = redirect;
-  }
-
-  updateList(result: RedirectModel) {
-    if (!result) { return false; }
-    const update = this.listRedirect.find((e: RedirectModel) => {
-      return (e.id === result.id);
-    });
-
-    if (update) {
-      this.listRedirect.map((e: RedirectModel) => {
-        if (e.id === result.id) { Object.assign(e, result); }
-        return e;
-      });
-    } else {
-      this.listRedirect.push(result);
-    }
   }
 
 }
