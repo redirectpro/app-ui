@@ -62,7 +62,7 @@ export class RedirectListComponent implements OnInit {
     });
 
     if (redirect) {
-      dialogRef.componentInstance.setRedirect(redirect);
+      dialogRef.componentInstance.populate(redirect);
     }
   }
 

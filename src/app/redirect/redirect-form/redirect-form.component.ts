@@ -1,8 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
-import { FormBuilder, FormGroup, FormControl, Validators, FormArray } from '@angular/forms';
+import { Component } from '@angular/core';
+import { FormBuilder, FormGroup, FormArray, Validators } from '@angular/forms';
 import { ApplicationService } from '../../shared/application/application.service';
-import { EventEmitter } from 'events';
 import { MdDialogRef } from '@angular/material';
 import { RedirectModel } from '../shared/redirect.model';
 
@@ -11,19 +9,12 @@ import { RedirectModel } from '../shared/redirect.model';
   templateUrl: './redirect-form.component.html',
   styleUrls: ['./redirect-form.component.css']
 })
-export class RedirectFormComponent implements OnInit {
+export class RedirectFormComponent {
   public myForm: FormGroup;
-  // redirect: Redirect;
-  redirectId: String;
-  // // jobId: String;
-  // // jobProgress: Number;
-  // // jobFailedReason: String;
-  // event: EventEmitter = new EventEmitter();
+  public redirect: RedirectModel;
 
   constructor(
     public applicationService: ApplicationService,
-    public router: Router,
-    public route: ActivatedRoute,
     public formBuilder: FormBuilder,
     public dialogRef: MdDialogRef<RedirectFormComponent>
   ) {
@@ -34,9 +25,6 @@ export class RedirectFormComponent implements OnInit {
     });
 
     this.addSourceHost();
-  }
-
-  ngOnInit() {
   }
 
   addSourceHost(value?: string) {
@@ -52,8 +40,8 @@ export class RedirectFormComponent implements OnInit {
     control.removeAt(i);
   }
 
-  setRedirect(redirect: RedirectModel) {
-    this.redirectId = redirect.id;
+  populate(redirect: RedirectModel) {
+    this.redirect = redirect;
     this.myForm.controls['targetProtocol'].setValue(redirect.targetProtocol);
     this.myForm.controls['targetHost'].setValue(redirect.targetHost);
 
@@ -83,13 +71,13 @@ export class RedirectFormComponent implements OnInit {
   save(_model: Object, isValid: boolean) {
     const model: RedirectModel = this.transform(_model);
 
-    if (isValid === true && this.redirectId === undefined) {
+    if (isValid === true && this.redirect === undefined) {
       this.applicationService.redirect.postRedirect(model).then((data: RedirectModel) => {
         this.dialogRef.close(data);
         console.log('created');
       });
-    } else if (isValid === true && this.redirectId) {
-      this.applicationService.redirect.putRedirect(this.redirectId, model).then((data: RedirectModel) => {
+    } else if (isValid === true && this.redirect) {
+      this.applicationService.redirect.putRedirect(this.redirect.id, model).then((data: RedirectModel) => {
         this.dialogRef.close(data);
         console.log('updated!');
       });
