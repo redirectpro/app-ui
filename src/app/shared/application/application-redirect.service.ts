@@ -16,11 +16,10 @@ export class ApplicationRedirectService {
     return new Promise((resolve, reject) => {
       this.applicationService.startLoading();
       this.apiService.redirect.getRedirects(this.applicationService.id)
+        .finally(() => { this.applicationService.stopLoading(); })
         .subscribe(
-          data => {
-            this.applicationService.stopLoading();
-            return resolve(data);
-          }
+          data => { return resolve(data); },
+          err => { return reject(err); }
         );
     });
   }
@@ -29,11 +28,10 @@ export class ApplicationRedirectService {
     return new Promise((resolve, reject) => {
       this.applicationService.startLoading();
       this.apiService.redirect.getRedirect(this.applicationService.id, redirectId)
+        .finally(() => { this.applicationService.stopLoading(); })
         .subscribe(
-          data => {
-            this.applicationService.stopLoading();
-            return resolve(data);
-          }
+          data => { return resolve(data); },
+          err => { return reject(err); }
         );
     });
   }
@@ -42,11 +40,10 @@ export class ApplicationRedirectService {
     return new Promise((resolve, reject) => {
       this.applicationService.startLoading();
       this.apiService.redirect.deleteRedirect(this.applicationService.id, redirectId)
+        .finally(() => { this.applicationService.stopLoading(); })
         .subscribe(
-          data => {
-            this.applicationService.stopLoading();
-            return resolve(data);
-          }
+          data => { return resolve(data); },
+          err => { return reject(err); }
         );
     });
   }
@@ -55,11 +52,10 @@ export class ApplicationRedirectService {
     return new Promise((resolve, reject) => {
       this.applicationService.startLoading();
       this.apiService.redirect.postRedirect(this.applicationService.id, params)
+        .finally(() => { this.applicationService.stopLoading(); })
         .subscribe(
-          data => {
-            this.applicationService.stopLoading();
-            return resolve(data);
-          }
+          data => { return resolve(data); },
+          err => { return reject(err); }
         );
     });
   }
@@ -68,11 +64,10 @@ export class ApplicationRedirectService {
     return new Promise((resolve, reject) => {
       this.applicationService.startLoading();
       this.apiService.redirect.putRedirect(this.applicationService.id, redirectId, params)
+        .finally(() => { this.applicationService.stopLoading(); })
         .subscribe(
-          data => {
-            this.applicationService.stopLoading();
-            return resolve(data);
-          }
+          data => { return resolve(data); },
+          err => { return reject(err); }
         );
     });
   }
@@ -81,11 +76,10 @@ export class ApplicationRedirectService {
     return new Promise((resolve, reject) => {
       this.applicationService.startLoading();
       this.apiService.redirect.postUpload(this.applicationService.id, redirectId, file)
+        .finally(() => { this.applicationService.stopLoading(); })
         .subscribe(
-          data => {
-            this.applicationService.stopLoading();
-            return resolve(data);
-          }
+          data => { return resolve(data); },
+          err => { return reject(err); }
         );
     });
   }
@@ -94,12 +88,11 @@ export class ApplicationRedirectService {
     return new Promise((resolve, reject) => {
       this.applicationService.startLoading();
       this.apiService.redirect.getUploadJob(this.applicationService.id, redirectId, jobId)
+        .finally(() => { this.applicationService.stopLoading(); })
         .subscribe(
-          data => {
-            this.applicationService.stopLoading();
-            return resolve(data);
-          }
-        )
-    })
+          data => { return resolve(data); },
+          err => { return reject(err); }
+        );
+    });
   }
 }

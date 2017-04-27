@@ -74,12 +74,10 @@ export class RedirectFormComponent {
     if (isValid === true && this.redirect === undefined) {
       this.applicationService.redirect.postRedirect(model).then((data: RedirectModel) => {
         this.dialogRef.close(data);
-        console.log('created');
       });
     } else if (isValid === true && this.redirect) {
       this.applicationService.redirect.putRedirect(this.redirect.id, model).then((data: RedirectModel) => {
         this.dialogRef.close(data);
-        console.log('updated!');
       });
     }
   }

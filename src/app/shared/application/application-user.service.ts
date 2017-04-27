@@ -15,11 +15,10 @@ export class ApplicationUserService {
     return new Promise((resolve, reject) => {
       this.applicationService.startLoading();
       this.apiService.user.getProfile()
+        .finally(() => { this.applicationService.stopLoading(); })
         .subscribe(
-          data => {
-            this.applicationService.stopLoading();
-            return resolve(data);
-          }
+          data => { return resolve(data); },
+          err => { return reject(err); }
         );
     });
   }

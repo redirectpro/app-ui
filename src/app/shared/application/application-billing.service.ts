@@ -16,11 +16,10 @@ export class ApplicationBillingService {
     return new Promise((resolve, reject) => {
       this.applicationService.startLoading();
       this.apiService.billing.getPlans()
+        .finally(() => { this.applicationService.stopLoading(); })
         .subscribe(
-          data => {
-            this.applicationService.stopLoading();
-            return resolve(data);
-          }
+          data => { return resolve(data); },
+          err => { return reject(err); }
         );
     });
   }
@@ -40,11 +39,10 @@ export class ApplicationBillingService {
     return new Promise((resolve, reject) => {
       this.applicationService.startLoading();
       this.apiService.billing.getProfile(applicationId)
+        .finally(() => { this.applicationService.stopLoading(); })
         .subscribe(
-          data => {
-            this.applicationService.stopLoading();
-            return resolve(data);
-          }
+          data => { return resolve(data); },
+          err => { return reject(err); }
         );
     });
   }
@@ -65,11 +63,10 @@ export class ApplicationBillingService {
     return new Promise ((resolve, reject) => {
       this.applicationService.startLoading();
       this.apiService.billing.putCreditCard(applicationId, token)
+        .finally(() => { this.applicationService.stopLoading(); })
         .subscribe(
-          data => {
-            this.applicationService.stopLoading();
-            return resolve(data);
-          }
+          data => { return resolve(data); },
+          err => { return reject(err); }
         );
     });
   }
@@ -79,12 +76,13 @@ export class ApplicationBillingService {
     return new Promise((resolve, reject) => {
       this.applicationService.startLoading();
       this.apiService.billing.putPlan(applicationId, planId)
+        .finally(() => { this.applicationService.stopLoading(); })
         .subscribe(
           data => {
-            this.applicationService.stopLoading();
             this.profile['subscription'] = data;
             return resolve(data);
-          }
+          },
+          err => { return reject(err); }
         );
     });
   }
@@ -94,11 +92,10 @@ export class ApplicationBillingService {
     return new Promise((resolve, reject) => {
       this.applicationService.startLoading();
       this.apiService.billing.getPlanUpcoming(applicationId, planId)
+        .finally(() => { this.applicationService.stopLoading(); })
         .subscribe(
-          data => {
-            this.applicationService.stopLoading();
-            return resolve(data);
-          }
+          data => { return resolve(data); },
+          err => { return reject(err); }
         );
     });
   }
@@ -108,12 +105,13 @@ export class ApplicationBillingService {
     return new Promise((resolve, reject) => {
       this.applicationService.startLoading();
       this.apiService.billing.postCancelUpcomingPlan(applicationId)
+        .finally(() => { this.applicationService.stopLoading(); })
         .subscribe(
           data => {
-            this.applicationService.stopLoading();
             this.profile['subscription'].plan.upcomingPlanId = data.plan.upcomingPlanId;
             return resolve(data);
-          }
+          },
+          err => { return reject(err); }
         );
     });
   }
