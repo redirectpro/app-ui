@@ -10,7 +10,7 @@
 
       <md-input-container>
         <input mdInput placeholder="Your target host" formControlName="targetHost" />
-        <md-error>Target host is a required field.</md-error>
+        <md-error>Target must be valid. Ex: www.example.com</md-error>
       </md-input-container>
     </p>
 
@@ -21,30 +21,6 @@
           <button type="button" md-button color="primary" (click)="addSourceHost()" *ngIf="myForm.controls.hostSources.controls.length == (i+1)">Add more</button>
         </p>
     </div>
-
-    <!--<div class="margin-20">
-      <pre>Is myForm valid?: <br>{{myForm.valid | json}}</pre>
-      <pre>form value: <br>{{myForm.value | json}}</pre>
-    </div>-->
-
-  <!--<div *ngIf="redirect.id">
-    <h2>Upload your redirect table</h2>
-    <input type="file" id="file" name="file" (change)="fileChange($event)">
-  </div>
-
-  <div *ngIf="jobFailedReason">
-    <h3>{{ jobFailedReason }}</h3>
-  </div>
-
-  <div *ngIf="jobId">
-    <h2>Result</h2>
-
-    <md-progress-bar
-        [color]="primary"
-        [mode]="determinate"
-        [value]="jobProgress || 0">
-    </md-progress-bar>
-  </div>-->
 
 </div>
 <div md-dialog-actions>

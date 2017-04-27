@@ -19,18 +19,17 @@ export class RedirectFormComponent {
     public dialogRef: MdDialogRef<RedirectFormComponent>
   ) {
     this.myForm = this.formBuilder.group({
-      targetProtocol: ['', [Validators.required]],
+      targetProtocol: ['http', [Validators.required]],
       targetHost: ['', [Validators.required]],
       hostSources: this.formBuilder.array([])
     });
-
     this.addSourceHost();
   }
 
   addSourceHost(value?: string) {
     const control = <FormArray>this.myForm.controls['hostSources'];
     const initHost = this.formBuilder.group({
-      host: [value, Validators.required]
+      host: [(value || ''), [Validators.required]]
     });
     control.push(initHost);
   }
@@ -70,7 +69,6 @@ export class RedirectFormComponent {
 
   save(_model: Object, isValid: boolean) {
     const model: RedirectModel = this.transform(_model);
-
     if (isValid === true && this.redirect === undefined) {
       this.applicationService.redirect.postRedirect(model).then((data: RedirectModel) => {
         this.dialogRef.close(data);
