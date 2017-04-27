@@ -10,12 +10,16 @@ export class BillingService {
   constructor(public applicationService: ApplicationService) { }
 
   public updateCreditCard(callback = null) {
+    this.applicationService.startLoading();
+
     const stripeHandler = StripeCheckout.configure({
       key: environment.stripePublicKey,
       image: 'https://stripe.com/img/documentation/checkout/marketplace.png',
       locale: 'auto',
+      opened: () => {
+        this.applicationService.stopLoading();
+      },
       token: (token) => {
-        console.log(token);
         this.applicationService.billing.updateCreditCard(token.id).then((card) => {
           this.applicationService.billing.profile['card'] = card;
           if (callback) {
