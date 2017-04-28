@@ -3,11 +3,11 @@ import { ApplicationService } from '../../shared/application/application.service
 import { EventEmitter } from 'events';
 import { DialogService } from '../../shared/dialog/dialog.service';
 import { MdDialog } from '@angular/material';
+import { MdSnackBar } from '@angular/material';
 import { RedirectFormComponent } from '../redirect-form/redirect-form.component';
 import { RedirectFromToComponent } from '../redirect-from-to/redirect-from-to.component';
 import { RedirectModel } from '../shared/redirect.model';
 import { RedirectListService } from './redirect-list.service';
-
 
 @Component({
   selector: 'app-redirect-list',
@@ -21,7 +21,8 @@ export class RedirectListComponent implements OnInit {
   constructor(
     public applicationService: ApplicationService,
     public dialogService: DialogService,
-    public dialog: MdDialog
+    public dialog: MdDialog,
+    public snackBar: MdSnackBar
   ) {
     this.service = new RedirectListService(applicationService);
   }
@@ -45,6 +46,7 @@ export class RedirectListComponent implements OnInit {
     this.dialogService.confirm(dialogParams).then((confirmed) => {
       if (confirmed === true) {
         this.service.delete(redirect);
+        this.snackBar.open('Redirect has been deleted.', 'CLOSE', { duration: 5000 });
       }
     });
   }
@@ -53,7 +55,14 @@ export class RedirectListComponent implements OnInit {
     const dialogRef = this.dialog.open(RedirectFormComponent);
 
     dialogRef.afterClosed().subscribe((result: RedirectModel) => {
-      if (result) { this.service.assign(result); }
+      if (result) {
+        const r = this.service.assign(result);
+        if (r.added) {
+          this.snackBar.open('Redirect has been added.', 'CLOSE', { duration: 5000 });
+        } else if (r.updated) {
+          this.snackBar.open('Redirect has been updated.', 'CLOSE', { duration: 5000 });
+        }
+      }
     });
 
     if (redirect) {

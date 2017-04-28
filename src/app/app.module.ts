@@ -14,7 +14,7 @@ import { DialogService } from './shared/dialog/dialog.service';
 import {
   MdButtonModule, MdDialogModule, MdMenuModule,
   MdInputModule, MdGridListModule, MdIconModule,
-  MdSelectModule, MdProgressBarModule
+  MdSelectModule, MdProgressBarModule, MdSnackBarModule
 } from '@angular/material';
 import { FlexLayoutModule } from '@angular/flex-layout';
 
@@ -58,7 +58,7 @@ const routes: Routes = [
     BrowserAnimationsModule,
     MomentModule,
     MdButtonModule, MdDialogModule, MdMenuModule, MdInputModule, MdGridListModule, MdIconModule,
-    MdSelectModule, MdProgressBarModule,
+    MdSelectModule, MdProgressBarModule, MdSnackBarModule,
     FlexLayoutModule
   ],
   entryComponents: [ DialogComponent, RedirectFormComponent, RedirectFromToComponent ],

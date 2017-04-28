@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ApplicationService } from '../../shared/application/application.service';
 import { DialogService } from '../../shared/dialog/dialog.service';
 import { BillingService } from '../shared/billing.service';
+import { MdSnackBar } from '@angular/material';
 import * as moment from 'moment';
 
 @Component({
@@ -14,7 +15,8 @@ export class BillingPlanComponent implements OnInit {
 
   constructor(
       public applicationService: ApplicationService,
-      public dialogService: DialogService
+      public dialogService: DialogService,
+      public snackBar: MdSnackBar
   ) {
     this.billingService = new BillingService(applicationService);
   }
@@ -40,8 +42,6 @@ export class BillingPlanComponent implements OnInit {
     const plan = this.applicationService.billing.plans.find(item => item['id'] === planId);
     this.applicationService.billing.getPlanUpcoming(planId).then((data) => {
 
-      console.log(data);
-
       const dialogParams = {
         title: 'Confirm your new plan',
         declineText: 'Cancel',
@@ -65,7 +65,13 @@ export class BillingPlanComponent implements OnInit {
 
       this.dialogService.confirm(dialogParams).then((confirmed) => {
         if (confirmed === true) {
-          this.applicationService.billing.updateSubscription(planId);
+          this.applicationService.billing.updateSubscription(planId).then((billing) => {
+            if (billing['plan'].upcomingPlanId) {
+              this.snackBar.open('Your plan will be changed by the end the cycle.', 'CLOSE', { duration: 5000 });
+            } else {
+              this.snackBar.open('Plan has been updated.', 'CLOSE', { duration: 5000 });
+            }
+          });
         }
       });
 
@@ -74,6 +80,7 @@ export class BillingPlanComponent implements OnInit {
 
   cancelUpcomingPlan() {
     this.applicationService.billing.cancelUpcomingPlan().then((data) => {
+      this.snackBar.open('Your upcoming plan has been canceled.', 'CLOSE', { duration: 5000 });
       console.log(data);
     });
   }

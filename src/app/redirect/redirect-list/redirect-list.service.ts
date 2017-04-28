@@ -15,6 +15,12 @@ export class RedirectListService {
   }
 
   assign(redirect: RedirectModel) {
+    /* Result format */
+    const result = {
+      added: false,
+      updated: false
+    };
+
     /* Identify redirect in list */
     const update = this.list.find((e: RedirectModel) => {
       return (e.id === redirect.id);
@@ -26,11 +32,14 @@ export class RedirectListService {
         if (e.id === redirect.id) { Object.assign(e, redirect); }
         return e;
       });
-
+      result.updated = true;
     /* If result is not there, add */
     } else {
       this.list.push(redirect);
+      result.added = true;
     }
+
+    return result;
   }
 
   delete(redirect: RedirectModel) {

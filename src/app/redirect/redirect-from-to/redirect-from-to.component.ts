@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ApplicationService } from '../../shared/application/application.service';
 import { RedirectModel } from '../shared/redirect.model';
+import { MdSnackBar } from '@angular/material';
 
 @Component({
   selector: 'app-redirect-from-to',
@@ -15,7 +16,7 @@ export class RedirectFromToComponent implements OnInit {
   jobProgress: Number;
   jobFailedReason: String;
 
-  constructor(public applicationService: ApplicationService) { }
+  constructor(public applicationService: ApplicationService, public snackBar: MdSnackBar) { }
 
   ngOnInit() {
   }
@@ -34,6 +35,7 @@ export class RedirectFromToComponent implements OnInit {
         this.myInputFileSetted = false;
         this.jobId = data['jobId'];
         this.checkJob();
+        this.snackBar.open('Your file is being processed.', 'CLOSE', { duration: 5000 });
       });
     }
   }
@@ -48,6 +50,11 @@ export class RedirectFromToComponent implements OnInit {
         this.jobFailedReason = data['failedReason'];
         this.jobId = null;
       } else {
+
+        if (this.jobProgress === 100) {
+          this.snackBar.open('Your file has been processed.', 'CLOSE', { duration: 5000 });
+        }
+
         setTimeout(() => {
           this.jobId = null;
         }, 5000);
