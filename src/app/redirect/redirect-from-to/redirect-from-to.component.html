@@ -1,7 +1,10 @@
 <h1 md-dialog-title>Upload your redirect table</h1>
 <div md-dialog-content>
 
-  <input type="file" id="file" name="file" (change)="fileChange($event)">
+<form #formCtrl="ngForm">
+  <input #inputFile type="file" name="file" (change)="setRequired()">
+  <button type="button" md-button md-raised-button color="primary" (click)="uploadFile()" [disabled]="!myInputFileSetted">Upload</button>
+</form>
 
   <div *ngIf="jobFailedReason">
     <h3>{{ jobFailedReason }}</h3>
