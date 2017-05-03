@@ -72,10 +72,10 @@ export class ApplicationRedirectService {
     });
   }
 
-  public postFromTo(redirectId: String, file: any) {
+  public postFromTo(redirectId: String, type: string, data: any) {
     return new Promise((resolve, reject) => {
       this.applicationService.startLoading();
-      this.apiService.redirect.postFromTo(this.applicationService.id, redirectId, file)
+      this.apiService.redirect.postFromTo(this.applicationService.id, redirectId, type, data)
         .finally(() => { this.applicationService.stopLoading(); })
         .subscribe(
           data => { return resolve(data); },

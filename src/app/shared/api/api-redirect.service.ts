@@ -47,9 +47,17 @@ export class ApiRedirectService {
       .catch(this.apiService.handleError);
   }
 
-  public postFromTo(applicationId: String, redirectId: String, file: any) {
-    const formData: FormData = new FormData();
-    formData.append('file', file, file.name);
+  public postFromTo(applicationId: String, redirectId: String, type: String, data: any) {
+
+    let formData;
+
+    if (type === 'file') {
+      formData = new FormData();
+      formData.append('file', data, data.name);
+    } else {
+      formData = data;
+    }
+
     return this.http
       .post(this.url + `/${applicationId}/redirect/${redirectId}/fromTo`, formData, this.apiService.requestOptions(true))
       .map(this.apiService.extractData)

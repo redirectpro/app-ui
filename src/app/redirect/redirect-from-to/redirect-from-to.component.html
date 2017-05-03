@@ -2,7 +2,7 @@
 <div md-dialog-content>
 
 <form #formCtrl="ngForm">
-  <input #inputFile type="file" name="file" (change)="setRequired()">
+  <input #inputFile type="file" name="file" (change)="myInputFileSetted=true">
   <button type="button" md-button md-raised-button color="primary" (click)="uploadFile()" [disabled]="!myInputFileSetted">Upload</button>
 </form>
 
@@ -20,11 +20,10 @@
     </md-progress-bar>
   </div>
 
-  <div *ngIf="data">
-  <ng2-smart-table [settings]="settings" [source]="data"></ng2-smart-table>
-  </div>
+  <ng2-smart-table [settings]="settings" [source]="source"></ng2-smart-table>
 
 </div>
 <div md-dialog-actions>
   <button md-button md-dialog-close>Close</button>
+  <button md-button md-raised-button color="primary" (click)="saveTable()">Save</button>
 </div>

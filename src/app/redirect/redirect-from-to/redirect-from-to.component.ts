@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { ApplicationService } from '../../shared/application/application.service';
 import { RedirectModel } from '../shared/redirect.model';
 import { MdSnackBar } from '@angular/material';
+import { LocalDataSource } from 'ng2-smart-table';
 
 @Component({
   selector: 'app-redirect-from-to',
@@ -16,12 +17,14 @@ export class RedirectFromToComponent implements OnInit {
   jobProgress: Number;
   jobFailedReason: String;
   settings: Object;
-  data: Array<Object>;
+  source: LocalDataSource;
 
-  constructor(public applicationService: ApplicationService, public snackBar: MdSnackBar) { }
+  constructor(public applicationService: ApplicationService, public snackBar: MdSnackBar) {
+    this.source = new LocalDataSource();
+  }
 
   ngOnInit() {
-    setTimeout(() => { this.getFromToData(); }, 300);
+    setTimeout(() => { this.getFromTo(); }, 150);
 
     this.settings = {
       columns: {
@@ -32,36 +35,22 @@ export class RedirectFromToComponent implements OnInit {
 
   }
 
-  getFromToData() {
-    this.data = null;
+  getFromTo() {
+    this.source.load([]);
     this.applicationService.redirect.getFromTo(this.redirect.id).then((data) => {
-      this.checkFromToJob(data['queue'], data['jobId']);
+      setTimeout(() => {
+        this.checkFromToJob(data['queue'], data['jobId']);
+      }, 500);
     });
   }
 
-  checkFromToJob(queue, jobId) {
-    console.log(1)
-    this.applicationService.redirect.getJob(this.redirect.id, queue, jobId).then((data) => {
-      if (data['progress'] < 100) {
-        setTimeout(() => { this.checkFromToJob(queue, jobId); }, 1000);
-      } else if (data['returnValue']) {
-        this.applicationService.getContent(data['returnValue']['objectLink']).then((dataLink: Array<Object>) => {
-          this.data = dataLink;
-        });
-      }
-    });
-  }
-
-  setRequired() {
-    this.myInputFileSetted = true;
-  }
 
   uploadFile(filex) {
     const fileList: FileList = this.myInputFile.nativeElement.files;
     if (fileList.length > 0) {
       const file: File = fileList[0];
       this.jobFailedReason = null;
-      this.applicationService.redirect.postFromTo(this.redirect.id, file).then((data) => {
+      this.applicationService.redirect.postFromTo(this.redirect.id, 'file', file).then((data) => {
         this.myInputFile.nativeElement.value = '';
         this.myInputFileSetted = false;
         this.jobId = data['jobId'];
@@ -69,6 +58,26 @@ export class RedirectFromToComponent implements OnInit {
         this.snackBar.open('Your file is being processed.', 'CLOSE', { duration: 5000 });
       });
     }
+  }
+
+  saveTable() {
+    const jsonData = this.source['data'];
+    this.applicationService.redirect.postFromTo(this.redirect.id, 'json', jsonData).then((data) => {
+      this.jobId = data['jobId'];
+      this.checkUploadFileJob(data['queue']);
+    });
+  }
+
+  checkFromToJob(queue, jobId) {
+    this.applicationService.redirect.getJob(this.redirect.id, queue, jobId).then((data) => {
+      if (data['progress'] < 100) {
+        setTimeout(() => { this.checkFromToJob(queue, jobId); }, 1000);
+      } else if (data['returnValue']) {
+        this.applicationService.getContent(data['returnValue']['objectLink']).then((dataLink: Array<Object>) => {
+          this.source.load(dataLink);
+        });
+      }
+    });
   }
 
   checkUploadFileJob(queue) {
@@ -82,7 +91,7 @@ export class RedirectFromToComponent implements OnInit {
       } else {
 
         if (this.jobProgress === 100) {
-          this.getFromToData();
+          this.getFromTo();
           this.snackBar.open('Your file has been processed.', 'CLOSE', { duration: 5000 });
         }
 
