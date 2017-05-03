@@ -52,4 +52,11 @@ export class ApiService {
     return Observable.throw(error);
   }
 
+  public getContent(url: string) {
+    return this.http
+      .get(url)
+      .map(this.extractData)
+      .catch(this.handleError);
+  }
+
 }

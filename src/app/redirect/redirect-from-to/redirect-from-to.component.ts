@@ -15,10 +15,41 @@ export class RedirectFromToComponent implements OnInit {
   jobId: String;
   jobProgress: Number;
   jobFailedReason: String;
+  settings: Object;
+  data: Array<Object>;
 
   constructor(public applicationService: ApplicationService, public snackBar: MdSnackBar) { }
 
   ngOnInit() {
+    setTimeout(() => { this.getFromToData(); }, 300);
+
+    this.settings = {
+      columns: {
+        from: { title: 'From' },
+        to: { title: 'To' }
+      }
+    };
+
+  }
+
+  getFromToData() {
+    this.data = null;
+    this.applicationService.redirect.getFromTo(this.redirect.id).then((data) => {
+      this.checkFromToJob(data['queue'], data['jobId']);
+    });
+  }
+
+  checkFromToJob(queue, jobId) {
+    console.log(1)
+    this.applicationService.redirect.getJob(this.redirect.id, queue, jobId).then((data) => {
+      if (data['progress'] < 100) {
+        setTimeout(() => { this.checkFromToJob(queue, jobId); }, 1000);
+      } else if (data['returnValue']) {
+        this.applicationService.getContent(data['returnValue']['objectLink']).then((dataLink: Array<Object>) => {
+          this.data = dataLink;
+        });
+      }
+    });
   }
 
   setRequired() {
@@ -30,28 +61,28 @@ export class RedirectFromToComponent implements OnInit {
     if (fileList.length > 0) {
       const file: File = fileList[0];
       this.jobFailedReason = null;
-      this.applicationService.redirect.postUpload(this.redirect.id, file).then((data) => {
+      this.applicationService.redirect.postFromTo(this.redirect.id, file).then((data) => {
         this.myInputFile.nativeElement.value = '';
         this.myInputFileSetted = false;
         this.jobId = data['jobId'];
-        this.checkJob();
+        this.checkUploadFileJob(data['queue']);
         this.snackBar.open('Your file is being processed.', 'CLOSE', { duration: 5000 });
       });
     }
   }
 
-  checkJob() {
-    this.applicationService.redirect.getUploadJob(this.redirect.id, this.jobId).then((data) => {
-      console.log(data);
+  checkUploadFileJob(queue) {
+    this.applicationService.redirect.getJob(this.redirect.id, queue, this.jobId).then((data) => {
       this.jobProgress = data['progress'];
       if (this.jobProgress < 100 && !data['failedReason']) {
-        setTimeout(() => { this.checkJob(); }, 3000);
+        setTimeout(() => { this.checkUploadFileJob(queue); }, 3000);
       } else if (data['failedReason']) {
         this.jobFailedReason = data['failedReason'];
         this.jobId = null;
       } else {
 
         if (this.jobProgress === 100) {
+          this.getFromToData();
           this.snackBar.open('Your file has been processed.', 'CLOSE', { duration: 5000 });
         }
 

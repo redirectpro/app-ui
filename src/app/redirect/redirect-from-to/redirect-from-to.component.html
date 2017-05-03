@@ -20,6 +20,10 @@
     </md-progress-bar>
   </div>
 
+  <div *ngIf="data">
+  <ng2-smart-table [settings]="settings" [source]="data"></ng2-smart-table>
+  </div>
+
 </div>
 <div md-dialog-actions>
   <button md-button md-dialog-close>Close</button>

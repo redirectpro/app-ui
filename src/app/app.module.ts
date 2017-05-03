@@ -17,6 +17,7 @@ import {
   MdSelectModule, MdProgressBarModule, MdSnackBarModule
 } from '@angular/material';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { Ng2SmartTableModule } from 'ng2-smart-table';
 
 import { AppComponent } from './app.component';
 import { DialogComponent } from './shared/dialog/dialog.component';
@@ -59,7 +60,8 @@ const routes: Routes = [
     MomentModule,
     MdButtonModule, MdDialogModule, MdMenuModule, MdInputModule, MdGridListModule, MdIconModule,
     MdSelectModule, MdProgressBarModule, MdSnackBarModule,
-    FlexLayoutModule
+    FlexLayoutModule,
+    Ng2SmartTableModule
   ],
   entryComponents: [ DialogComponent, RedirectFormComponent, RedirectFromToComponent ],
   exports: [RouterModule],

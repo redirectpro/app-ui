@@ -72,10 +72,10 @@ export class ApplicationRedirectService {
     });
   }
 
-  public postUpload(redirectId: String, file: any) {
+  public postFromTo(redirectId: String, file: any) {
     return new Promise((resolve, reject) => {
       this.applicationService.startLoading();
-      this.apiService.redirect.postUpload(this.applicationService.id, redirectId, file)
+      this.apiService.redirect.postFromTo(this.applicationService.id, redirectId, file)
         .finally(() => { this.applicationService.stopLoading(); })
         .subscribe(
           data => { return resolve(data); },
@@ -84,10 +84,22 @@ export class ApplicationRedirectService {
     });
   }
 
-  public getUploadJob(redirectId: String, jobId: String) {
+  public getFromTo(redirectId: String) {
     return new Promise((resolve, reject) => {
       this.applicationService.startLoading();
-      this.apiService.redirect.getUploadJob(this.applicationService.id, redirectId, jobId)
+      this.apiService.redirect.getFromTo(this.applicationService.id, redirectId)
+        .finally(() => { this.applicationService.stopLoading(); })
+        .subscribe(
+          data => { return resolve(data); },
+          err => { return reject(err); }
+        );
+    });
+  }
+
+  public getJob(redirectId: String, queue: string, jobId: String) {
+    return new Promise((resolve, reject) => {
+      this.applicationService.startLoading();
+      this.apiService.redirect.getJob(this.applicationService.id, redirectId, queue, jobId)
         .finally(() => { this.applicationService.stopLoading(); })
         .subscribe(
           data => { return resolve(data); },

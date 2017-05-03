@@ -59,4 +59,16 @@ export class ApplicationService  {
     this.loading -= 1;
   }
 
+  public getContent(url: string) {
+    return new Promise((resolve, reject) => {
+      this.startLoading();
+      this.apiService.getContent(url)
+        .finally(() => { this.stopLoading(); })
+        .subscribe(
+          data => { return resolve(data); },
+          err => { return reject(err); }
+        );
+    });
+  }
+
 }
