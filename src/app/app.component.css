@@ -1,1 +1,21 @@
 .loading-overlay { margin-top: -5px; }
+
+.div-img {
+    width: 30px;
+    float: left;
+    padding-top: 10px;
+}
+
+.div-img img {  
+    width: 30px;
+}
+
+.div-text {
+    font-family: "Quicksand", "Adobe Blank";
+    font-weight: 700;
+    font-style: normal;
+    font-size: 20px;
+    line-height: 40px;
+    height: 40px;
+    padding-right: 10px;
+}

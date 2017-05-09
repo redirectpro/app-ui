@@ -1,9 +1,13 @@
 <div class="loading-overlay" *ngIf="applicationService.loading">
     <md-progress-bar mode="indeterminate"></md-progress-bar>
 </div>
+<div>
+</div>
 <md-sidenav-container fullscreen class="containerX">
   <md-toolbar>
     <div fxLayout="row">
+      <div class="div-img"><img src="http://static.dnnsharp.com/icons/couple35.png"></div>
+      <div class="div-text">RedirectPro</div>
       <button md-button routerLink="/">Redirects</button>
       <button md-icon-button [mdMenuTriggerFor]="menu">
         <md-icon>more_vert</md-icon>
