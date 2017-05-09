@@ -3,6 +3,7 @@ import { ApplicationService } from '../../shared/application/application.service
 import { RedirectModel } from '../shared/redirect.model';
 import { MdSnackBar } from '@angular/material';
 import { LocalDataSource } from 'ng2-smart-table';
+import json2csv from 'json2csv/lib/json2csv';
 
 @Component({
   selector: 'app-redirect-from-to',
@@ -102,4 +103,15 @@ export class RedirectFromToComponent implements OnInit {
     });
   }
 
+  downloadFile() {
+    const fields = ['from', 'to'];
+    const data = json2csv({ data: this.source['data'], fields: fields });
+    const csvData = new Blob([data], {type: 'text/csv;charset=utf-8;'});
+    const csvURL = window.URL.createObjectURL(csvData);
+    const filename = `${this.redirect.targetHost.replace(/\./g, '-')}-${new Date().getTime()}` + '.csv';
+    const tempLink = document.createElement('a');
+    tempLink.href = csvURL;
+    tempLink.setAttribute('download', filename);
+    tempLink.click();
+  }
 }
