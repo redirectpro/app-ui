@@ -11,7 +11,7 @@ export class AuthLogoutComponent implements OnInit {
   constructor(public router: Router) { }
 
   ngOnInit() {
-    localStorage.removeItem('id_token');
+    localStorage.removeItem('token');
     localStorage.removeItem('access_token');
     this.router.navigate(['/login']);
   }

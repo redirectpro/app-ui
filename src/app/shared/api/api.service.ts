@@ -24,7 +24,7 @@ export class ApiService {
   public requestOptions(sendingFile: Boolean = false) {
     const headers = new Headers({
       'Accept': 'application/json',
-      'Authorization': 'Bearer ' + localStorage.getItem('id_token')
+      'Authorization': 'Bearer ' + localStorage.getItem('token')
     });
 
     if (!sendingFile) {
