@@ -37,10 +37,10 @@ export class RedirectListComponent implements OnInit {
 
   delete(redirect: RedirectModel) {
     const dialogParams = {
-      title: 'Deleting redirect',
+      title: 'Delete confirmation',
       declineText: 'Cancel',
-      confirmText: 'Yes',
-      message: `Do you want to delete redirect to target ${redirect.targetHost}?`
+      confirmText: 'Yes, delete it!',
+      message: `Do you want to delete your redirect to the target <strong>${redirect.targetHost}</strong>?`
     };
 
     this.dialogService.confirm(dialogParams).then((confirmed) => {

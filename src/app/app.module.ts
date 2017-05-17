@@ -14,7 +14,8 @@ import { DialogService } from './shared/dialog/dialog.service';
 import {
   MdButtonModule, MdDialogModule, MdMenuModule,
   MdInputModule, MdGridListModule, MdIconModule,
-  MdSelectModule, MdProgressBarModule, MdSnackBarModule
+  MdSelectModule, MdProgressBarModule, MdSnackBarModule,
+  MdCardModule
 } from '@angular/material';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { Ng2SmartTableModule } from 'ng2-smart-table';
@@ -59,7 +60,7 @@ const routes: Routes = [
     BrowserAnimationsModule,
     MomentModule,
     MdButtonModule, MdDialogModule, MdMenuModule, MdInputModule, MdGridListModule, MdIconModule,
-    MdSelectModule, MdProgressBarModule, MdSnackBarModule,
+    MdSelectModule, MdProgressBarModule, MdSnackBarModule, MdCardModule,
     FlexLayoutModule,
     Ng2SmartTableModule
   ],

@@ -71,12 +71,16 @@ export class RedirectFromToComponent implements OnInit {
 
   checkFromToJob(queue, jobId) {
     this.applicationService.redirect.getJob(this.redirect.id, queue, jobId).then((data) => {
-      if (data['progress'] < 100) {
-        setTimeout(() => { this.checkFromToJob(queue, jobId); }, 1000);
-      } else if (data['returnValue']) {
+      if (data['progress'] === 100 && data['returnValue']) {
         this.applicationService.getContent(data['returnValue']['objectLink']).then((dataLink: Array<Object>) => {
           this.source.load(dataLink);
         });
+      } else if (data['progress'] === 100 && data['failedReason']) {
+        // nothing
+      } else if (data['failedReason']) {
+        this.snackBar.open(data['failedReason'], 'CLOSE', { duration: 5000 });
+      } else if (data['progress'] < 100) {
+        setTimeout(() => { this.checkFromToJob(queue, jobId); }, 1000);
       }
     });
   }

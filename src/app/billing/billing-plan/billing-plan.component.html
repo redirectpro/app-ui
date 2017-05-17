@@ -1,18 +1,47 @@
-<p>
-  plan works!
-</p>
+<h4>Available plans</h4>
 
-<div *ngIf="applicationService.ready">
-  <ul>
-    <li *ngFor="let plan of applicationService.billing.plans;">
-        {{ plan.name }}/{{ plan.id }} - {{ plan.price | currency:'USD':true }}<button md-button *ngIf="applicationService.billing.profile.subscription.plan.id != plan.id" (click)="updatePlan(plan.id)">SET</button>
-    </li>
-  </ul>
+<div class="snip1276" *ngIf="applicationService.ready">
+  <!--http://littlesnippets.net/category/categories/pricing-tables/-->
+  <ng-container *ngFor="let plan of applicationService.billing.plans; let i = index;">
+  <div *ngIf="i <= 2" class="plan featured" [class.featured]="applicationService.billing.profile.subscription.plan.id===plan.id">
+    <header>
+      <h4 class="plan-title">
+        {{ plan.name }}
+      </h4>
+      <div class="plan-cost"><span class="plan-price">${{ plan.price }}</span><span class="plan-type">/month</span></div>
+    </header>
 
-  <div *ngIf="applicationService.billing.profile.subscription.plan.upcomingPlanId">
-  Your plan will change to {{ applicationService.billing.profile.subscription.plan.upcomingPlanId }}
-  on {{ (applicationService.billing.profile.subscription.current_period_end | amFromUnix) | amDateFormat:'DD-MM-YYYY HH:mm' }}.
-  <br />
-  <button md-button (click)="cancelUpcomingPlan()">Cancel upcoming plan</button>
+    <ul class="plan-features" *ngIf="plan.id==='personal'">
+      <li><i class="ion-checkmark"> </i>1 Target Domain</li>
+      <li><i class="ion-checkmark"> </i>10 Custom Path Redirects</li>
+      <li><i class="ion-checkmark"> </i>10.000 Effective Redirects</li>
+      <li><i class="ion-checkmark"> </i>Partial HTTPS Support</li>
+    </ul>
+
+    <ul class="plan-features" *ngIf="plan.id==='professional'">
+      <li><i class="ion-checkmark"> </i>5 Target Domain</li>
+      <li><i class="ion-checkmark"> </i>500 Custom Path Redirects</li>
+      <li><i class="ion-checkmark"> </i>500.000 Effective Redirects</li>
+      <li><i class="ion-checkmark"> </i>Full HTTPS Support</li>
+    </ul>
+
+    <ul class="plan-features" *ngIf="plan.id==='enterprise'">
+      <li><i class="ion-checkmark"> </i>15 Target Domain</li>
+      <li><i class="ion-checkmark"> </i>1500 Custom Path Redirects</li>
+      <li><i class="ion-checkmark"> </i>1.500.000 Effective Redirects</li>
+      <li><i class="ion-checkmark"> </i>Full HTTPS Support</li>
+    </ul>
+
+    <div class="plan-select"><button md-raised-button (click)="updatePlan(plan.id)" [disabled]="applicationService.billing.profile.subscription.plan.id===plan.id || applicationService.billing.profile.subscription.plan.upcomingPlanId === plan.id">Select Plan</button></div>
+    <div *ngIf="applicationService.billing.profile.subscription.plan.upcomingPlanId === plan.id">
+      Upcoming plan on:<br />{{ (applicationService.billing.profile.subscription.current_period_end | amFromUnix) | amDateFormat:'DD-MM-YYYY HH:mm' }}
+      <p>
+        <button md-raised-button color="warn" (click)="cancelUpcomingPlan()">Cancel upcoming plan</button>
+      </p>
+
+    </div>
   </div>
+  </ng-container>
 </div>
+
+

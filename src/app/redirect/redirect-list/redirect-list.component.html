@@ -1,17 +1,31 @@
-<h4>redirect-list works!</h4>
+<div *ngIf="applicationService.isReady | async">
+  <h4>Your redirects</h4>
 
-<div *ngIf="applicationService.isReady | async" style="min-width: 600px">
-  <ng-container *ngFor="let redirect of service.list">
-    <div fxLayout="row">
-      <div fxFlex="80">{{ redirect.targetProtocol }}://{{ redirect.targetHost }} - {{ redirect.hostSources }}</div>
-      <div fxFlex>
-        <button md-button (click)="openFromTo(redirect)">From-To</button>
-      </div>
-      <div fxFlex>
-        <button md-button (click)="openForm(redirect)">edit</button>
-      </div>
-      <div fxFlex><button md-button (click)="delete(redirect)">delete</button></div>
-    </div>
+  <ng-container *ngIf="service.list?.length">
+    <md-card *ngFor="let redirect of service.list">
+      <md-card-header class="margin-zero">
+        <md-card-title>Target host: <strong>{{ redirect.targetProtocol }}://{{ redirect.targetHost }}</strong></md-card-title>
+        <md-card-subtitle>Source hosts: 
+          <ng-container *ngFor="let source of redirect.hostSources">
+          {{ source }}
+          </ng-container>
+        </md-card-subtitle>
+      </md-card-header>
+      <md-card-actions>
+        <button md-button (click)="openFromTo(redirect)">Configure FROM TO</button>
+        <button md-button (click)="openForm(redirect)">Edit Target/Sources</button>
+        <button md-button (click)="delete(redirect)">Delete</button>
+      </md-card-actions>
+    </md-card>
+
+    <button md-button color="primary" md-raised-button (click)="openForm()">Add new redirect</button>
   </ng-container>
-  <button md-button color="primary" md-raised-button (click)="openForm()">Add new redirect</button>
+
+  <ng-container *ngIf="!service.list?.length">
+    <p>
+      You do not have any redirect configured. Let's set up it.
+    </p>
+    <button md-button color="primary" md-raised-button (click)="openForm()">Add your first redirect</button>
+  </ng-container>
+
 </div>
