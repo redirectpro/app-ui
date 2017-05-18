@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild, Renderer } from '@angular/core';
 import { ApplicationService } from '../../shared/application/application.service';
 import { RedirectModel } from '../shared/redirect.model';
 import { MdSnackBar } from '@angular/material';
@@ -10,7 +10,7 @@ import json2csv from 'json2csv/lib/json2csv';
   templateUrl: './redirect-from-to.component.html',
   styleUrls: ['./redirect-from-to.component.css']
 })
-export class RedirectFromToComponent implements OnInit {
+export class RedirectFromToComponent implements OnInit, OnDestroy {
   @ViewChild('inputFile') myInputFile: any;
   myInputFileSetted: Boolean = false;
   redirect: RedirectModel;
@@ -19,8 +19,14 @@ export class RedirectFromToComponent implements OnInit {
   jobFailedReason: String;
   settings: Object;
   source: LocalDataSource;
+  isDestroyed: Boolean = false;
 
-  constructor(public applicationService: ApplicationService, public snackBar: MdSnackBar) {
+  constructor(
+    public applicationService: ApplicationService,
+    public snackBar: MdSnackBar,
+    public renderer: Renderer
+  ) {
+    this.renderer.setElementClass(document.querySelector('md-dialog-container'), 'app-redirect-from-to', true);
     this.source = new LocalDataSource();
   }
 
@@ -34,6 +40,10 @@ export class RedirectFromToComponent implements OnInit {
       }
     };
 
+  }
+
+  ngOnDestroy() {
+    this.isDestroyed = true;
   }
 
   getFromTo() {
@@ -70,6 +80,8 @@ export class RedirectFromToComponent implements OnInit {
   }
 
   checkFromToJob(queue, jobId) {
+    if (this.isDestroyed === true) { return false; }
+
     this.applicationService.redirect.getJob(this.redirect.id, queue, jobId).then((data) => {
       if (data['progress'] === 100 && data['returnValue']) {
         this.applicationService.getContent(data['returnValue']['objectLink']).then((dataLink: Array<Object>) => {
@@ -86,6 +98,8 @@ export class RedirectFromToComponent implements OnInit {
   }
 
   checkUploadFileJob(queue) {
+    if (this.isDestroyed === true) { return false; }
+
     this.applicationService.redirect.getJob(this.redirect.id, queue, this.jobId).then((data) => {
       this.jobProgress = data['progress'];
       if (this.jobProgress < 100 && !data['failedReason']) {

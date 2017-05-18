@@ -59,5 +59,14 @@ body {
 }
 
 .header div.row { min-width: 768px; }
+
+.full-width { width: 100%; }
+
 app-redirect-list, app-plan, app-billing-credit-card { width: 768px; }
 md-dialog-container { max-width: 575px !important; }
+md-dialog-container.app-redirect-form { width: 575px !important; }
+md-dialog-container.app-redirect-from-to { width: 575 !important; }
+md-select { margin-top: -4px; }
+div.mat-dialog-actions { float: right; }
+button[md-dialog-close], .md-dialog-close { margin-right: 10px !important; }
+th { text-align: left; }

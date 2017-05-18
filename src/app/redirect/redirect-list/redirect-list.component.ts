@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ApplicationService } from '../../shared/application/application.service';
 import { EventEmitter } from 'events';
+import parseDomain from 'parse-domain';
 import { DialogService } from '../../shared/dialog/dialog.service';
 import { MdDialog } from '@angular/material';
 import { MdSnackBar } from '@angular/material';
@@ -8,6 +9,7 @@ import { RedirectFormComponent } from '../redirect-form/redirect-form.component'
 import { RedirectFromToComponent } from '../redirect-from-to/redirect-from-to.component';
 import { RedirectModel } from '../shared/redirect.model';
 import { RedirectListService } from './redirect-list.service';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-redirect-list',
@@ -75,4 +77,17 @@ export class RedirectListComponent implements OnInit {
     dialogRef.componentInstance.redirect = redirect;
   }
 
+  getRecordValues = (source) => {
+    const result = {
+      type: 'CNAME',
+      destination: environment.redirectCNAMEDestination
+    };
+
+    if (!parseDomain(source).subdomain) {
+      result.type = 'A';
+      result.destination = environment.redirectADestination;
+    }
+
+    return result;
+  };
 }

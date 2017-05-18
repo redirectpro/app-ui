@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy, Renderer } from '@angular/core';
 import { FormBuilder, FormGroup, FormArray, Validators } from '@angular/forms';
 import { ApplicationService } from '../../shared/application/application.service';
 import { MdDialogRef } from '@angular/material';
@@ -16,8 +16,10 @@ export class RedirectFormComponent {
   constructor(
     public applicationService: ApplicationService,
     public formBuilder: FormBuilder,
-    public dialogRef: MdDialogRef<RedirectFormComponent>
+    public dialogRef: MdDialogRef<RedirectFormComponent>,
+    public renderer: Renderer
   ) {
+    this.renderer.setElementClass(document.querySelector('md-dialog-container'), 'app-redirect-form', true);
     this.myForm = this.formBuilder.group({
       targetProtocol: ['http', [Validators.required]],
       targetHost: ['', [Validators.required]],
