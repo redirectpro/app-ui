@@ -82,4 +82,7 @@ export class RedirectFormComponent {
     }
   }
 
+  /* --aot results: Property 'controls' does not exist on type 'AbstractControl'. */
+  get getMyForm() { return <any>this.myForm.controls; }
+
 }

@@ -8,6 +8,6 @@ deployment:
       - aws configure set region eu-central-1
       - npm install
       - sh src/environments/environment.generator.sh > src/environments/environment.ts
-      - ./node_modules/.bin/ng build --sourcemaps
+      - ./node_modules/.bin/ng build --aot --sourcemaps false
       - echo ${CIRCLE_TAG} > dist/version.txt
       - aws s3 sync --acl public-read --delete ./dist/ s3://$AWS_S3_BUCKET
