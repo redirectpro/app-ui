@@ -19,6 +19,7 @@ import { environment } from '../../../environments/environment';
 export class RedirectListComponent implements OnInit {
   service: RedirectListService;
   event: EventEmitter = new EventEmitter();
+  isReady: Boolean = false;
 
   constructor(
     public applicationService: ApplicationService,
@@ -32,7 +33,11 @@ export class RedirectListComponent implements OnInit {
   ngOnInit() {
 
     this.applicationService.isReady.subscribe(
-      value => this.service.populate()
+      value => {
+        this.service.populate().then(() => {
+          this.isReady = true;
+        })
+      }
     );
 
   }

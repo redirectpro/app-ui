@@ -15,11 +15,10 @@ export class RedirectFromToComponent implements OnInit, OnDestroy {
   myInputFileSetted: Boolean = false;
   redirect: RedirectModel;
   jobId: String;
-  jobProgress: Number;
-  jobFailedReason: String;
   settings: Object;
   source: LocalDataSource;
   isDestroyed: Boolean = false;
+  isReady: Boolean = false;
 
   constructor(
     public applicationService: ApplicationService,
@@ -35,8 +34,14 @@ export class RedirectFromToComponent implements OnInit, OnDestroy {
 
     this.settings = {
       columns: {
-        from: { title: 'From' },
-        to: { title: 'To' }
+        from: {
+          title: 'From',
+          filter: false
+        },
+        to: {
+          title: 'To',
+          filter: false
+        }
       }
     };
 
@@ -47,6 +52,7 @@ export class RedirectFromToComponent implements OnInit, OnDestroy {
   }
 
   getFromTo() {
+    this.isReady = false;
     this.source.load([]);
     this.applicationService.redirect.getFromTo(this.redirect.id).then((data) => {
       setTimeout(() => {
@@ -55,12 +61,16 @@ export class RedirectFromToComponent implements OnInit, OnDestroy {
     });
   }
 
+  onClickUploadFile() {
+    this.myInputFile.nativeElement.click();
+  }
 
-  uploadFile(filex) {
+  onChangeUploadFile() {
+    this.myInputFileSetted = true
     const fileList: FileList = this.myInputFile.nativeElement.files;
     if (fileList.length > 0) {
       const file: File = fileList[0];
-      this.jobFailedReason = null;
+      this.isReady = false;
       this.applicationService.redirect.postFromTo(this.redirect.id, 'file', file).then((data) => {
         this.myInputFile.nativeElement.value = '';
         this.myInputFileSetted = false;
@@ -73,6 +83,7 @@ export class RedirectFromToComponent implements OnInit, OnDestroy {
 
   saveTable() {
     const jsonData = this.source['data'];
+    this.isReady = false;
     this.applicationService.redirect.postFromTo(this.redirect.id, 'json', jsonData).then((data) => {
       this.jobId = data['jobId'];
       this.checkUploadFileJob(data['queue']);
@@ -86,10 +97,13 @@ export class RedirectFromToComponent implements OnInit, OnDestroy {
       if (data['progress'] === 100 && data['returnValue']) {
         this.applicationService.getContent(data['returnValue']['objectLink']).then((dataLink: Array<Object>) => {
           this.source.load(dataLink);
+          this.isReady = true;
         });
       } else if (data['progress'] === 100 && data['failedReason']) {
+        this.isReady = true;
         // nothing
       } else if (data['failedReason']) {
+        this.isReady = true;
         this.snackBar.open(data['failedReason'], 'CLOSE', { duration: 5000 });
       } else if (data['progress'] < 100) {
         setTimeout(() => { this.checkFromToJob(queue, jobId); }, 1000);
@@ -101,22 +115,21 @@ export class RedirectFromToComponent implements OnInit, OnDestroy {
     if (this.isDestroyed === true) { return false; }
 
     this.applicationService.redirect.getJob(this.redirect.id, queue, this.jobId).then((data) => {
-      this.jobProgress = data['progress'];
-      if (this.jobProgress < 100 && !data['failedReason']) {
+      if (data['progress'] < 100 && !data['failedReason']) {
         setTimeout(() => { this.checkUploadFileJob(queue); }, 3000);
       } else if (data['failedReason']) {
-        this.jobFailedReason = data['failedReason'];
+        this.isReady = true;
         this.jobId = null;
+        this.snackBar.open(data['failedReason'], 'CLOSE', { duration: 5000 });
+        
       } else {
 
-        if (this.jobProgress === 100) {
+        if (data['progress'] === 100) {
           this.getFromTo();
           this.snackBar.open('Your file has been processed.', 'CLOSE', { duration: 5000 });
         }
 
-        setTimeout(() => {
-          this.jobId = null;
-        }, 5000);
+        this.jobId = null;
       }
     });
   }

@@ -1,7 +1,8 @@
 <div *ngIf="applicationService.isReady | async">
   <h4>Your redirects</h4>
+  <md-progress-bar mode="indeterminate" *ngIf="!isReady"></md-progress-bar>
 
-  <ng-container *ngIf="service.list?.length">
+  <ng-container *ngIf="service.list?.length && isReady">
     <md-card *ngFor="let redirect of service.list" class="mat-card">
       <md-card-header class="margin-zero">
         <md-card-title>Target host: <strong>{{ redirect.targetProtocol }}://{{ redirect.targetHost }}</strong></md-card-title>
@@ -38,7 +39,7 @@
     <button md-button color="primary" md-raised-button (click)="openForm()">Add new redirect</button>
   </ng-container>
 
-  <ng-container *ngIf="!service.list?.length">
+  <ng-container *ngIf="!service.list?.length && isReady">
     <p>
       You do not have any redirect configured. Let's set up it.
     </p>
