@@ -83,11 +83,13 @@ export class RedirectListComponent implements OnInit {
       destination: environment.redirectCNAMEDestination
     };
 
-    if (!parseDomain(source).subdomain) {
-      result.type = 'A';
-      result.destination = environment.redirectADestination;
-    }
+    try {
+      if (!parseDomain(source).subdomain) {
+        result.type = 'A';
+        result.destination = environment.redirectADestination;
+      }
+    } catch (err) { }
 
     return result;
-  };
+  }
 }

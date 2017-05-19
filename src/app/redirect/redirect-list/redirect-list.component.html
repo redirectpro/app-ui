@@ -2,7 +2,7 @@
   <h4>Your redirects</h4>
 
   <ng-container *ngIf="service.list?.length">
-    <md-card *ngFor="let redirect of service.list">
+    <md-card *ngFor="let redirect of service.list" class="mat-card">
       <md-card-header class="margin-zero">
         <md-card-title>Target host: <strong>{{ redirect.targetProtocol }}://{{ redirect.targetHost }}</strong></md-card-title>
         <md-card-subtitle>Source hosts: 
