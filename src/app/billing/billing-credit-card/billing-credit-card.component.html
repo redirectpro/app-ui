@@ -2,14 +2,14 @@
 
 <div *ngIf="applicationService.ready">
 
-  <div *ngIf="!applicationService.billing.profile.cardx">
+  <div *ngIf="!applicationService.billing.profile.card">
     <p>
       You do not have a credit card filled.
     </p>
     <button md-raised-button (click)="updateCreditCard()" [disabled]="applicationService.loading > 0">Add a credit card</button>
   </div>
 
-  <div *ngIf="applicationService.billing.profile.cardx">
+  <div *ngIf="applicationService.billing.profile.card">
     <p>
       Your credit card is a <code>{{ applicationService.billing.profile.card.brand }}</code> brand
       ending in <code>{{ applicationService.billing.profile.card.last4 }}</code>
