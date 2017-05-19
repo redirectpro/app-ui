@@ -3,6 +3,70 @@
 @import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
 
 body {
-  margin: 10;
+  margin: 0;
   font-family: Roboto, sans-serif;
+  background-color: #ecf0f1;
 }
+
+.loading-overlay {
+    background-color: #f6f6f6;
+    height: 5px;
+}
+
+.header {
+    background-color: #f6f6f6;
+    border-bottom-style: solid;
+    border-bottom-width: 1px;
+    border-bottom-color: rgba(0,0,0,.125);
+    padding-bottom: 4px;
+}
+
+.div-img {
+    width: 30px;
+    float: left;
+    padding-top: 10px;
+    outline: 0;
+    cursor: pointer;
+    margin-left: -3px;
+}
+
+.div-img img {  
+    width: 30px;
+}
+
+.div-text {
+    font-family: "Quicksand", "Adobe Blank";
+    font-weight: 700;
+    font-style: normal;
+    font-size: 20px;
+    line-height: 40px;
+    height: 40px;
+    padding-right: 10px;
+    outline: 0;
+    cursor: pointer;
+}
+
+.mat-card-header-text {
+  margin: 0px !important;
+}
+
+.mat-card-actions { 
+  padding-top: 0px !important;
+}
+
+.mat-card { 
+  margin-bottom: 22px !important;
+}
+
+.header div.row { min-width: 768px; }
+
+.full-width { width: 100%; }
+
+app-redirect-list, app-plan, app-billing-credit-card { width: 768px; }
+md-dialog-container { max-width: 575px !important; }
+md-dialog-container.app-redirect-form { width: 575px !important; }
+md-dialog-container.app-redirect-from-to { width: 575 !important; }
+md-select { margin-top: -4px; }
+div.mat-dialog-actions { float: right; }
+button[md-dialog-close], .md-dialog-close { margin-right: 10px !important; }
+th { text-align: left; }

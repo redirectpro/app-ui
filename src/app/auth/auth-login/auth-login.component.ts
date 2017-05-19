@@ -37,7 +37,7 @@ export class AuthLoginComponent implements OnInit {
 
     this.lock.on('authenticated', (authResult) => {
       this.lock.hide();
-      localStorage.setItem('id_token', authResult.idToken);
+      localStorage.setItem('token', authResult.idToken);
       localStorage.setItem('access_token', authResult.accessToken);
       this.applicationService.initialize().then(() => {
         const returnUrl = localStorage.getItem('return_url');

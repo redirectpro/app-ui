@@ -25,7 +25,7 @@ export class BillingPlanComponent implements OnInit {
   }
 
   updatePlan(planId: String) {
-    console.log(this.applicationService.billing.profile);
+    // console.log(this.applicationService.billing.profile);
 
     const callback = () => {
       this.validatePlan(planId);

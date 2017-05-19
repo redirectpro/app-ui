@@ -1,4 +1,5 @@
-<md-input-container [formGroup]="group">
+<md-input-container class="full-width" [formGroup]="group">
     <input mdInput placeholder="Your source host" formControlName="host" />
-    <md-error>Host must be valid. Ex: www.example.com</md-error>
+    <md-error>Host must be valid. Ex: www.your-old-domain.com</md-error>
+    <md-hint>Ex: www.your-old-domain.com</md-hint>
 </md-input-container>

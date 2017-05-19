@@ -1,30 +1,34 @@
 <form [formGroup]="myForm" novalidate (ngSubmit)="save(myForm.value, myForm.valid)">
-<h1 md-dialog-title>Dialog with elements</h1>
+<h1 md-dialog-title>Enter your redirect information</h1>
 <div md-dialog-content>
 
-    <p>
-      <md-select placeholder="Protocol" formControlName="targetProtocol">
-        <md-option value="http">http</md-option>
-        <md-option value="https">https</md-option>
-      </md-select>
+  <h5>Target / Destination</h5>
+  <table class="full-width"><tr>
+    <td><md-select placeholder="Protocol" formControlName="targetProtocol">
+      <md-option value="http">http</md-option>
+      <md-option value="https">https</md-option>
+    </md-select></td>
+    <td class="full-width"><md-input-container class="full-width">
+      <input mdInput placeholder="Your target host" formControlName="targetHost" />
+      <md-error>Target must be valid. Ex: www.your-new-domain.com</md-error>
+      <md-hint>Ex: www.your-new-domain.com</md-hint>
+    </md-input-container></td>
+  </tr></table>
 
-      <md-input-container>
-        <input mdInput placeholder="Your target host" formControlName="targetHost" />
-        <md-error>Target must be valid. Ex: www.example.com</md-error>
-      </md-input-container>
-    </p>
-
-    <div formArrayName="hostSources">
-        <p *ngFor="let hostSource of myForm.controls.hostSources.controls; let i=index">
-          <app-redirect-host-source [group]="myForm.controls.hostSources.controls[i]"></app-redirect-host-source>
-          <button type="button" md-button color="primary" (click)="removeSourceHost(i)" *ngIf="myForm.controls.hostSources.controls.length > 1">Remove</button>
-          <button type="button" md-button color="primary" (click)="addSourceHost()" *ngIf="myForm.controls.hostSources.controls.length == (i+1)">Add more</button>
-        </p>
-    </div>
+  <div formArrayName="hostSources">
+    <h5>Source / Origin</h5>
+    <table class="full-width">
+    <tr *ngFor="let hostSource of myForm.controls.hostSources.controls; let i=index">
+      <td class="full-width"><app-redirect-host-source [group]="myForm.controls.hostSources.controls[i]"></app-redirect-host-source></td>
+      <td><button type="button" md-button color="primary" (click)="removeSourceHost(i)" *ngIf="myForm.controls.hostSources.controls.length > 1">Remove</button></td>
+      <td><button type="button" md-button color="primary" (click)="addSourceHost()" *ngIf="myForm.controls.hostSources.controls.length == (i+1)">Add more</button></td>
+    </tr>
+    </table>
+  </div>
 
 </div>
 <div md-dialog-actions>
   <button md-button md-dialog-close>Close</button>
-  <button md-button color="primary" md-raised-button>Submit</button>
+  <button md-raised-button color="primary">Submit</button>
 </div>
 </form>
