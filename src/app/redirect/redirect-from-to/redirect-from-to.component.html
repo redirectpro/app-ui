@@ -1,30 +1,20 @@
-<h1 md-dialog-title>Upload your redirect table</h1>
+<h1 md-dialog-title>FROM TO Configuration</h1>
 <div md-dialog-content>
 
-<form #formCtrl="ngForm">
-  <input #inputFile type="file" name="file" (change)="myInputFileSetted=true">
-  <button type="button" md-button md-raised-button color="primary" (click)="uploadFile()" [disabled]="!myInputFileSetted">Upload</button>
-  <button type="button" md-button md-raised-button color="primary" (click)="downloadFile()">Download</button>
+<form #formCtrl="ngForm" style="display: none">
+  <input #inputFile type="file" name="file" (change)="onChangeUploadFile()">
 </form>
 
-  <div *ngIf="jobFailedReason">
-    <h3>{{ jobFailedReason }}</h3>
+  <div *ngIf="!isReady">
+    <md-progress-bar mode="indeterminate"></md-progress-bar>
   </div>
 
-  <div *ngIf="jobId">
-    <h2>Result</h2>
-
-    <md-progress-bar
-        [color]="primary"
-        [mode]="determinate"
-        [value]="jobProgress || 0">
-    </md-progress-bar>
-  </div>
-
-  <ng2-smart-table [settings]="settings" [source]="source"></ng2-smart-table>
+  <ng2-smart-table [settings]="settings" [source]="source" *ngIf="isReady"></ng2-smart-table>
   
 </div>
-<div md-dialog-actions>
+<div md-dialog-actions class="mat-dialog-actions-fixed" fxLayout="row" fxLayoutAlign="end">
+  <button type="button" md-button color="primary" (click)="downloadFile()" [disabled]="myInputFileSetted || !isReady">Download CSV</button>
+  <button type="button" md-button color="primary" (click)="onClickUploadFile()" [disabled]="myInputFileSetted || !isReady">Upload CSV</button>
   <button md-button md-dialog-close>Close</button>
-  <button md-button md-raised-button color="primary" (click)="saveTable()">Save</button>
+  <button md-button md-raised-button color="primary" (click)="saveTable()" [disabled]="myInputFileSetted || !isReady">Save</button>
 </div>

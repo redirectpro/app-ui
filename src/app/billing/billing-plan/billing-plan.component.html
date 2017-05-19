@@ -32,11 +32,11 @@
       <li><i class="ion-checkmark"> </i>Full HTTPS Support</li>
     </ul>
 
-    <div class="plan-select"><button md-raised-button (click)="updatePlan(plan.id)" [disabled]="applicationService.billing.profile.subscription.plan.id===plan.id || applicationService.billing.profile.subscription.plan.upcomingPlanId === plan.id">Select Plan</button></div>
+    <div class="plan-select"><button md-raised-button (click)="updatePlan(plan.id)" [disabled]="applicationService.billing.profile.subscription.plan.id===plan.id || applicationService.billing.profile.subscription.plan.upcomingPlanId === plan.id || applicationService.loading > 0">Select Plan</button></div>
     <div *ngIf="applicationService.billing.profile.subscription.plan.upcomingPlanId === plan.id">
       Upcoming plan on:<br />{{ (applicationService.billing.profile.subscription.current_period_end | amFromUnix) | amDateFormat:'DD-MM-YYYY HH:mm' }}
       <p>
-        <button md-raised-button color="warn" (click)="cancelUpcomingPlan()">Cancel upcoming plan</button>
+        <button md-raised-button color="warn" (click)="cancelUpcomingPlan()" [disabled]="applicationService.loading > 0">Cancel upcoming plan</button>
       </p>
 
     </div>

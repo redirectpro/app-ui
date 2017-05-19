@@ -9,9 +9,12 @@ export class RedirectListService {
   constructor(public applicationService: ApplicationService) { }
 
   populate() {
-    this.applicationService.redirect.getRedirects().then((data: Array<RedirectModel>) => {
-      this.list = data;
-    });
+    return new Promise((resolve) => {
+      this.applicationService.redirect.getRedirects().then((data: Array<RedirectModel>) => {
+        this.list = data;
+        resolve()
+      });
+    })    
   }
 
   assign(redirect: RedirectModel) {

@@ -1,0 +1,16 @@
+#container-auth-callback {
+    background-color: #eee;
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+}
+
+.md-icon-check {
+    position: absolute;
+    font-size: 30px;
+    margin-top: -4px;
+    margin-left: -2px;
+    color: green;
+}

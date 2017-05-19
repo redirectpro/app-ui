@@ -22,28 +22,28 @@ body {
 }
 
 .div-img {
-    width: 30px;
-    float: left;
-    padding-top: 10px;
-    outline: 0;
-    cursor: pointer;
-    margin-left: -3px;
+  width: 30px;
+  float: left;
+  padding-top: 10px;
+  outline: 0;
+  cursor: pointer;
+  margin-left: -3px;
 }
 
-.div-img img {  
-    width: 30px;
+.div-img img {
+  width: 30px;
 }
 
 .div-text {
-    font-family: "Quicksand", "Adobe Blank";
-    font-weight: 700;
-    font-style: normal;
-    font-size: 20px;
-    line-height: 40px;
-    height: 40px;
-    padding-right: 10px;
-    outline: 0;
-    cursor: pointer;
+  font-family: "Quicksand", "Adobe Blank";
+  font-weight: 700;
+  font-style: normal;
+  font-size: 20px;
+  line-height: 40px;
+  height: 40px;
+  padding-right: 10px;
+  outline: 0;
+  cursor: pointer;
 }
 
 .mat-card-header-text {
@@ -63,10 +63,40 @@ body {
 .full-width { width: 100%; }
 
 app-redirect-list, app-plan, app-billing-credit-card { width: 768px; }
+app-redirect-form .mat-dialog-content { margin-top: -15px; }
 md-dialog-container { max-width: 575px !important; }
 md-dialog-container.app-redirect-form { width: 575px !important; }
-md-dialog-container.app-redirect-from-to { width: 575 !important; }
+md-dialog-container.app-redirect-from-to { width: 575px !important; min-height: 400px !important; }
 md-select { margin-top: -4px; }
+
 div.mat-dialog-actions { float: right; }
+div.mat-dialog-actions-fixed {
+  position: fixed;
+  width: 90.6%;
+  bottom: 24px;
+  border-top: 1px solid #999;
+}
+div.mat-dialog-actions-fixed button { margin-right: 10px !important; }
+
 button[md-dialog-close], .md-dialog-close { margin-right: 10px !important; }
 th { text-align: left; }
+
+.ng2-smart-action-add-create {
+  color: green !important;
+}
+
+.ng2-smart-action-add-cancel {
+  color: silver !important;
+}
+
+div.inform {
+  text-align: center;
+  background-color: #f2dede;
+  border: 1px solid #a94442;
+  color: #a94442;
+  padding-left: 10px;
+  padding-right: 10px;
+  width: 100%;
+  font-size: 13px;
+  line-height: 18px;
+}
