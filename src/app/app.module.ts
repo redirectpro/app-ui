@@ -14,8 +14,8 @@ import { DialogService } from './shared/dialog/dialog.service';
 import {
   MdButtonModule, MdDialogModule, MdMenuModule,
   MdInputModule, MdGridListModule, MdIconModule,
-  MdSelectModule, MdProgressBarModule, MdSnackBarModule,
-  MdCardModule
+  MdSelectModule, MdProgressBarModule, MdProgressSpinnerModule,
+  MdSnackBarModule, MdCardModule
 } from '@angular/material';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { Ng2SmartTableModule } from 'ng2-smart-table';
@@ -29,12 +29,14 @@ import { RedirectListComponent } from './redirect/redirect-list/redirect-list.co
 import { RedirectFormComponent } from './redirect/redirect-form/redirect-form.component';
 import { RedirectHostSourceComponent } from './redirect/redirect-form/redirect-host-source.component';
 import { AuthLoginComponent } from './auth/auth-login/auth-login.component';
+import { AuthCallbackComponent } from './auth/auth-callback/auth-callback.component';
 import { AuthLogoutComponent } from './auth/auth-logout/auth-logout.component';
 import { RedirectFromToComponent } from './redirect/redirect-from-to/redirect-from-to.component';
 
 const routes: Routes = [
   { path: '', component: RedirectListComponent, canActivate: [ AuthGuardService ] },
   { path: 'login', component: AuthLoginComponent },
+  { path: 'loginCallback', component: AuthCallbackComponent },
   { path: 'logout', component: AuthLogoutComponent },
   { path: 'account', component: AccountComponent, canActivate: [ AuthGuardService ] },
   { path: 'billing', children: [
@@ -50,7 +52,7 @@ const routes: Routes = [
     AppComponent, DialogComponent,
     AccountComponent, BillingPlanComponent, BillingCreditCardComponent, RedirectListComponent, 
     RedirectFormComponent, RedirectHostSourceComponent,
-    AuthLoginComponent, AuthLogoutComponent, RedirectFromToComponent
+    AuthLoginComponent, AuthLogoutComponent, AuthCallbackComponent, RedirectFromToComponent
   ],
   imports: [
     BrowserModule,
@@ -60,7 +62,7 @@ const routes: Routes = [
     BrowserAnimationsModule,
     MomentModule,
     MdButtonModule, MdDialogModule, MdMenuModule, MdInputModule, MdGridListModule, MdIconModule,
-    MdSelectModule, MdProgressBarModule, MdSnackBarModule, MdCardModule,
+    MdSelectModule, MdProgressBarModule, MdProgressSpinnerModule, MdSnackBarModule, MdCardModule,
     FlexLayoutModule,
     Ng2SmartTableModule
   ],

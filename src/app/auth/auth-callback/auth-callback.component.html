@@ -1,0 +1,12 @@
+<div id="container-auth-callback" fxLayout="row" fxLayoutAlign="center center">
+
+  <ng-container *ngIf="isAuthenticated === false">
+    <md-spinner mode="indeterminate"></md-spinner>
+  </ng-container>
+
+  <ng-container *ngIf="isAuthenticated === true">
+    <md-progress-spinner [mode]="determinate" [value]=100></md-progress-spinner>
+    <md-icon class="md-icon-check">check</md-icon>
+  </ng-container>
+
+</div>
