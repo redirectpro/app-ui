@@ -18,7 +18,7 @@
   <div formArrayName="hostSources">
     <h5>Source / Origin</h5>
     <table class="full-width">
-    <tr *ngFor="let hostSource of myForm.controls.hostSources.controls; let i=index">
+    <tr *ngFor="let hostSource of getMyForm.hostSources.controls; let i=index">
       <td class="full-width"><app-redirect-host-source [group]="myForm.controls.hostSources.controls[i]"></app-redirect-host-source></td>
       <td><button type="button" md-button color="primary" (click)="removeSourceHost(i)" *ngIf="myForm.controls.hostSources.controls.length > 1">Remove</button></td>
       <td><button type="button" md-button color="primary" (click)="addSourceHost()" *ngIf="myForm.controls.hostSources.controls.length == (i+1)">Add more</button></td>
