@@ -83,6 +83,10 @@ export class RedirectFromToComponent implements OnInit, OnDestroy {
 
   saveTable() {
     const jsonData = this.source['data'];
+    let elCreate = <HTMLElement>document.querySelector('a.ng2-smart-action-add-create');
+    let elUpdate = <HTMLElement>document.querySelector('a.ng2-smart-action-edit-save');
+    if (elCreate) { elCreate.click() }
+    if (elUpdate) { elUpdate.click() }
     this.isReady = false;
     this.applicationService.redirect.postFromTo(this.redirect.id, 'json', jsonData).then((data) => {
       this.jobId = data['jobId'];

@@ -30,6 +30,12 @@ export class AuthLoginComponent implements OnInit {
         params: {
           scope: 'openid email'
         }
+      },
+      theme: {
+        logo: '/assets/logo-icon.png',
+      },
+      languageDictionary: {
+        title: 'RedirectPro'
       }
     });
 
