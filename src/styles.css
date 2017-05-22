@@ -22,21 +22,21 @@ body {
 }
 
 .div-img {
-  width: 30px;
   float: left;
-  padding-top: 10px;
+  padding-top: 5px;
+  padding-left: 1px;
+  padding-right: 6px;
   outline: 0;
   cursor: pointer;
-  margin-left: -3px;
+  transform: rotate(6deg);
 }
 
 .div-img img {
-  width: 30px;
+  width: 24px;
 }
 
 .div-text {
-  font-family: "Quicksand", "Adobe Blank";
-  font-weight: 700;
+  font-family: "Futura", "Helvetica";
   font-style: normal;
   font-size: 20px;
   line-height: 40px;
