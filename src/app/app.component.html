@@ -13,19 +13,19 @@
       How to help? Just configure your domain and be happy. :)
     </div>
     <md-menu #menu="mdMenu">
-      <button md-menu-item routerLink="/account">
+      <button md-menu-item routerLink="/account" angulartics2On="click" angularticsEvent="AccountButton" angularticsCategory="Account" [angularticsProperties]="{label: 'Account Button'}">
         <md-icon>account_box</md-icon>
         <span>Profile</span>
       </button>
-      <button md-menu-item routerLink="/billing/plans">
+      <button md-menu-item routerLink="/billing/plans" angulartics2On="click" angularticsEvent="BillingPlansButton" angularticsCategory="Billing" [angularticsProperties]="{label: 'Billing Plans Button'}">
         <md-icon>dehaze</md-icon>
         <span>Plans</span>
       </button>
-      <button md-menu-item routerLink="/billing/credit-card">
+      <button md-menu-item routerLink="/billing/credit-card" angulartics2On="click" angularticsEvent="BillingCreditCardButton" angularticsCategory="Billing" [angularticsProperties]="{label: 'Billing CreditCard Button'}">
         <md-icon>credit_card</md-icon>
         <span>Credit Card</span>
       </button>
-      <button md-menu-item routerLink="/logout">
+      <button md-menu-item routerLink="/logout" angulartics2On="click" angularticsEvent="AccountLogoutButton" angularticsCategory="Account" [angularticsProperties]="{label: 'Account Logout Button'}">
         <md-icon>cancel</md-icon>
         <span>Logout</span>
       </button>

@@ -30,20 +30,20 @@
         </table>
       </md-card-content>
       <md-card-actions>
-        <button md-button (click)="openFromTo(redirect)">Configure FROM TO</button>
-        <button md-button (click)="openForm(redirect)">Edit Target/Sources</button>
-        <button md-button (click)="delete(redirect)">Delete</button>
+        <button md-button (click)="openFromTo(redirect)" angulartics2On="click" angularticsEvent="RedirectOpenFromTo" angularticsCategory="Redirect" [angularticsProperties]="{label: 'Open FromTo'}">Configure FROM TO</button>
+        <button md-button (click)="openForm(redirect)" angulartics2On="click" angularticsEvent="RedirectOpenEdit" angularticsCategory="Redirect" [angularticsProperties]="{label: 'Open Redirect Editor'}">Edit Target/Sources</button>
+        <button md-button (click)="delete(redirect)" angulartics2On="click" angularticsEvent="RedirectOpenDeleteConfirmation" angularticsCategory="Redirect" [angularticsProperties]="{label: 'Open Redirect Delete Confirmation'}">Delete</button>
       </md-card-actions>
     </md-card>
 
-    <button md-button color="primary" md-raised-button (click)="openForm()">Add new redirect</button>
+    <button md-button color="primary" md-raised-button (click)="openForm()" angulartics2On="click" angularticsEvent="RedirectOpenAdd" angularticsCategory="Redirect" [angularticsProperties]="{label: 'Open Add Redirect'}">Add new redirect</button>
   </ng-container>
 
   <ng-container *ngIf="!service.list?.length && isReady">
     <p>
       You do not have any redirect configured. Let's set up it.
     </p>
-    <button md-button color="primary" md-raised-button (click)="openForm()">Add your first redirect</button>
+    <button md-button color="primary" md-raised-button (click)="openForm()" angulartics2On="click" angularticsEvent="RedirectOpenAdd" angularticsCategory="Redirect" [angularticsProperties]="{label: 'Open Add Redirect'}">Add your first redirect</button>
   </ng-container>
 
 </div>
