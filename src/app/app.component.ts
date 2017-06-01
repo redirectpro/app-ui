@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { tokenNotExpired } from 'angular2-jwt';
+import { Angulartics2GoogleAnalytics } from 'angulartics2';
 import { ApplicationService } from './shared/application/application.service';
 
 @Component({
@@ -12,7 +13,9 @@ export class AppComponent implements OnInit {
   userProfile: Object;
   billingProfile: Object;
 
-  constructor(public applicationService: ApplicationService) {
+  constructor(
+    public applicationService: ApplicationService,
+    public angulartics2GoogleAnalytics: Angulartics2GoogleAnalytics) {
   }
 
   ngOnInit() {

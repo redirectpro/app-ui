@@ -19,6 +19,7 @@ import {
 } from '@angular/material';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { Ng2SmartTableModule } from 'ng2-smart-table';
+import { Angulartics2Module, Angulartics2GoogleAnalytics } from 'angulartics2';
 
 import { AppComponent } from './app.component';
 import { DialogComponent } from './shared/dialog/dialog.component';
@@ -64,7 +65,8 @@ const routes: Routes = [
     MdButtonModule, MdDialogModule, MdMenuModule, MdInputModule, MdGridListModule, MdIconModule,
     MdSelectModule, MdProgressBarModule, MdProgressSpinnerModule, MdSnackBarModule, MdCardModule,
     FlexLayoutModule,
-    Ng2SmartTableModule
+    Ng2SmartTableModule,
+    Angulartics2Module.forRoot([ Angulartics2GoogleAnalytics ])
   ],
   entryComponents: [ DialogComponent, RedirectFormComponent, RedirectFromToComponent ],
   exports: [RouterModule],

@@ -1,3 +1,4 @@
+#!/bin/bash
 echo "export const environment = {
   production: $PRODUCTION,
   apiUrl: '$API_URL',
