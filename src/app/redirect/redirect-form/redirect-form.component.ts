@@ -31,7 +31,8 @@ export class RedirectFormComponent {
   addSourceHost(value?: string) {
     const control = <FormArray>this.myForm.controls['hostSources'];
     const initHost = this.formBuilder.group({
-      host: [(value || ''), [Validators.required]]
+      host: [(value || '')]
+      // , [Validators.required]]
     });
     control.push(initHost);
   }
@@ -63,7 +64,10 @@ export class RedirectFormComponent {
     };
 
     for (const host of model.hostSources) {
-      newModel.hostSources.push(host.host);
+      const hostSource = host.host.trim();
+      if (hostSource) {
+        newModel.hostSources.push(hostSource);
+      }
     }
 
     return newModel;
