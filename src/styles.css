@@ -100,3 +100,15 @@ div.inform {
   font-size: 13px;
   line-height: 18px;
 }
+
+div.message {
+  background-color: #d9edf7;
+  border: 1px solid #bce8f1;
+  color: #31708f;
+  padding-left: 10px;
+  padding-right: 10px;
+  width: 96%;
+  font-size: 13px;
+  line-height: 21px;
+  margin-bottom: 10px;
+}
