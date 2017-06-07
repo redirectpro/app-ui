@@ -1,12 +1,18 @@
 <h1 md-dialog-title>FROM TO Configuration</h1>
 <div md-dialog-content>
 
-<form #formCtrl="ngForm" style="display: none">
-  <input #inputFile type="file" name="file" (change)="onChangeUploadFile()">
-</form>
+  <form #formCtrl="ngForm" style="display: none">
+    <input #inputFile type="file" name="file" (change)="onChangeUploadFile()">
+  </form>
 
   <div *ngIf="!isReady">
     <md-progress-bar mode="indeterminate"></md-progress-bar>
+  </div>
+
+  <div class="message" *ngIf="isReady">
+  Here you can configure redirects based on your path content. By default all your access will be redirected using the original path but you can change it. Examples:<br />
+  FROM / TO /my-new-home<br />
+  FROM /news\?Id=([0-9]+) TO /news/$1.html
   </div>
 
   <ng2-smart-table [settings]="settings" [source]="source" *ngIf="isReady"></ng2-smart-table>
